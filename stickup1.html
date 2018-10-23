@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>注册</title>
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<style type="text/css">
+.layout {
+	width: 100%;
+	margin: 0 auto;
+}
+#header p, #footer p{
+	background-color: red;
+	height: 200px;
+	line-height: 100px;
+	text-align: center;
+	color: white;
+}
+.item{position:relative;}
+.nav {
+	background-color: blue;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	color: white;
+}
+
+.content {
+	height:400px;
+} 
+.item:nth-child(2) .content{
+	height:500px;
+}
+.item:nth-child(3) .content{
+	height:200px;
+}
+.item:nth-child(4) .content{
+	height:600px;
+}
+</style>
+</head>
+<body>
+<div id="header">
+	<div class="layout">
+		<p>header</p>
+	</div>
+</div>
+<div id="main">
+	<div class="layout">
+		<div class="item">
+			<div class="nav">nav1</div>
+			<div class="content">
+				1
+			</div>
+		</div>
+		<div class="item">
+			<div class="nav">nav2</div>
+			<div class="content">
+				2
+			</div>
+		</div>
+		<div class="item">
+			<div class="nav">nav3</div>
+			<div class="content">
+				3
+			</div>
+		</div>
+		<div class="item">
+			<div class="nav">nav4</div>
+			<div class="content">
+				4
+			</div>
+		</div>
+	</div>
+</div>
+<div id="footer">
+	<div class="layout">
+		<p>footer</p>
+	</div>
+</div>
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript">
+(function(){
+	$.fn.stick =function(){
+		var $cur = this,
+			itemH=$cur.parent().height(),
+			curH = $cur.height(),
+			curW = $cur.width(),
+			offsetTop = $cur.offset().top,
+			offsetLeft = $cur.offset().left,
+			isFixed = false;
+			isAbsolute=false
+		//  克隆元素，用于占位
+		
+		var $curClone = $cur.clone()
+							.css({visibility: "hidden",display: "none"})
+							.insertBefore($cur);
+		
+		//console.log("itemH"+itemH+","+"offsetTop"+offsetTop)
+		//  设置监听函数
+		$(window).on("scroll", function(){
+			var winScroll = $(this).scrollTop();
+			if(winScroll > offsetTop && winScroll<offsetTop+itemH-curH){
+				setFixed();
+			}
+			else if(winScroll>=offsetTop+itemH-curH){
+				setAbsolute()
+			}
+			else{
+				unsetFixed();
+			}
+		});
+		// 设置添加和删除stick函数
+		
+		function setFixed(){
+			$cur.css({
+				"position" : "fixed",
+				"top" : 0,
+				"left" : 0,
+				"width" : curW,
+				"z-index" : 100,
+				"backgroundColor":"#ffffff",
+				"color":'#f00'
+			}),
+			$curClone.show();
+			isFixed = true;
+			isAbsolute=false
+		}
+		function setAbsolute(){
+			$cur.css({
+				"position" : "absolute",
+				"top" : itemH-curH,
+				"left" : 0,
+				"width" : curW,
+				"z-index" : 100,
+				"backgroundColor":"#ffffff",
+				"color":'#f00'
+			})
+			$curClone.show();
+			isFixed=false
+			isAbsolute=true
+		}
+		function unsetFixed(){
+			isFixed = false;
+			isAbsolute = false;
+			$cur.removeAttr("style");
+			$curClone.hide();	
+		}
+	}
+})();
+$(".nav").each(function(){
+
+	$(this).stick();
+})
+</script>
+</body>
+</html>
