@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html style="font-size:50px;">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>实名认证</title>
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<style>
+.resetCellPhoneWrap{text-align:center;background:#42464f;}
+.resetCellPhoneWrap .tip{padding-top:.5rem;font-size:.3rem;}
+.resetCellPhoneWrap .identityCard{padding:.5rem 0;text-align:center;}
+.resetCellPhoneWrap .identityCard li{float:left;width:50%;}
+.resetCellPhoneWrap .identityCard li .img{position:relative;width:2.45rem;height:1.54rem;margin:0 auto .25rem;border-radius:.1rem;overflow:hidden;}
+.resetCellPhoneWrap .ico{position:absolute;top:50%;left:50%;display:block;width:.8rem;height:.6rem;margin:-.3rem 0 0 -.4rem;background:url(images/icoVidicon.png) no-repeat;background-size:.8rem .6rem;}
+.resetCellPhoneWrap .selectFile{position:absolute;top:0;left:0;display:block;width:100%;height:100%;opacity:0; z-index:10}
+.resetCellPhoneWrap .scanBankCardCon{padding:.3rem 0 .5rem;}
+.resetCellPhoneWrap .scanCon{position:relative;display:flex;align-items:center; width:2.7rem;height:1.7rem;margin:0 auto .2rem;border-radius:.1rem;overflow:hidden;background-color:#b6b7bb;}
+
+.cover-wrap{display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:#fff;z-index: 10000000;}
+.clipArea{width:100%;height:100%;}
+.clipBtn{position:fixed;bottom:.3rem;left:50%;display:block;width:4rem;height:.8rem;margin-left:-2rem;text-align:center;line-height:.8rem;font-size:.34rem;color:#fff;border-radius:.8rem;background-color:#cea76e;}
+.photo-clip-area{background-repeat:no-repeat;background-size:100% 100%;}
+.cover-wrap .text{position:absolute;top:50%;left:.5rem;width:6.5rem;margin-top:2.5rem;color:#fff;text-align:center;font-size:.26rem;}
+</style>
+</head>
+
+<body ontouchstart>
+<div id="container" style="margin-top:0;">	
+	<div class="resetCellPhoneWrap">
+		<div class="colorMain tip">请分别上传身份证正面和背面照片</div>
+		<ul class="identityCard clearfix">
+			<li>
+				<div class="img">
+					<img id="view1" src="images/card1.png">
+					<i class="ico"></i>
+					<input class="selectFile" type="file" id="file1" />	
+				</div>
+				<div class="colorMain">点击扫描身份证正面</div>
+			</li>
+			<li>
+				<div class="img">
+					<img id="view2" src="images/card2.png">
+					<i class="ico"></i>
+					<input class="selectFile" type="file" id="file2" />	
+				</div>
+				<div class="colorMain">点击扫描身份证背面</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<!--//container end-->
+
+<div class="cover-wrap" id="cover-wrap1">	
+	<div class="clipArea" id="clipArea1"></div>
+	<div class="text">请双指拖动以放大、缩小或旋转照片，以适应系统尺寸。</div>
+	<button class="clipBtn" id="clipBtn1">上传身份证正面</button>
+</div>
+
+<div class="cover-wrap" id="cover-wrap2">	
+	<div class="clipArea" id="clipArea2"></div>
+	<div class="text">请双指拖动以放大、缩小或旋转照片，以适应系统尺寸。</div>
+	<button class="clipBtn" id="clipBtn2">上传身份证背面</button>
+</div>
+
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/photoClip/iscroll-zoom.js"></script>
+<script type="text/javascript" src="js/photoClip/hammer.js"></script>
+<script type="text/javascript" src="js/photoClip/lrz.all.bundle.js"></script>
+<script type="text/javascript" src="js/photoClip/jquery.photoClip.min.js"></script>
+
+<script type="text/javascript">
+//
+//上传封面
+//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+var imgWidth=$(window).width()*0.9
+var imgHeight=$(window).width()*0.9*54/86
+var clipArea1 = new bjj.PhotoClip("#clipArea1", {
+	size: [imgWidth, imgHeight],// 截取框的宽和高组成的数组。默认值为[260,260]
+	outputSize: [860, 540], // 输出图像的宽和高组成的数组。默认值为[0,0]，表示输出图像原始大小
+	//outputType: "jpg", // 指定输出图片的类型，可选 "jpg" 和 "png" 两种种类型，默认为 "jpg"
+	file: "#file1", // 上传图片的<input type="file">控件的选择器或者DOM对象
+	view: "#view1", // 显示截取后图像的容器的选择器或者DOM对象
+	ok: "#clipBtn1", // 确认截图按钮的选择器或者DOM对象
+	bgImg:'images/bg1.png',
+	loadStart: function() {
+		// 开始加载的回调函数。this指向 fileReader 对象，并将正在加载的 file 对象作为参数传入
+		$('#cover-wrap1').fadeIn();
+		console.log("照片读取中");
+	},
+	loadComplete: function() {
+		 // 加载完成的回调函数。this指向图片对象，并将图片地址作为参数传入
+		console.log("照片读取完成");
+	},
+	//loadError: function(event) {}, // 加载失败的回调函数。this指向 fileReader 对象，并将错误事件的 event 对象作为参数传入
+	clipFinish: function(dataURL) {
+		 // 裁剪完成的回调函数。this指向图片对象，会将裁剪出的图像数据DataURL作为参数传入
+		$('#cover-wrap1').fadeOut();
+		//console.log(dataURL);
+	}
+});
+//clipArea.destroy();
+
+var clipArea2 = new bjj.PhotoClip("#clipArea2", {
+	size: [imgWidth, imgHeight],// 截取框的宽和高组成的数组。默认值为[260,260]
+	outputSize: [860, 540], // 输出图像的宽和高组成的数组。默认值为[0,0]，表示输出图像原始大小
+	//outputType: "jpg", // 指定输出图片的类型，可选 "jpg" 和 "png" 两种种类型，默认为 "jpg"
+	file: "#file2", // 上传图片的<input type="file">控件的选择器或者DOM对象
+	view: "#view2", // 显示截取后图像的容器的选择器或者DOM对象
+	ok: "#clipBtn2", // 确认截图按钮的选择器或者DOM对象
+	bgImg:'images/bg2.png',
+	loadStart: function() {
+		// 开始加载的回调函数。this指向 fileReader 对象，并将正在加载的 file 对象作为参数传入
+		$('#cover-wrap2').fadeIn();
+		console.log("照片读取中");
+	},
+	loadComplete: function() {
+		 // 加载完成的回调函数。this指向图片对象，并将图片地址作为参数传入
+		console.log("照片读取完成");
+	},
+	//loadError: function(event) {}, // 加载失败的回调函数。this指向 fileReader 对象，并将错误事件的 event 对象作为参数传入
+	clipFinish: function(dataURL) {
+		 // 裁剪完成的回调函数。this指向图片对象，会将裁剪出的图像数据DataURL作为参数传入
+		$('#cover-wrap2').fadeOut();
+		console.log(dataURL);
+	}
+});
+
+</script>
+</body>
+</html>
