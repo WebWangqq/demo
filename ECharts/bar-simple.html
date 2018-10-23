@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+<link type="text/css" rel="stylesheet" href="../css/layout.css">
+</head>
+
+<body style="height: 100%; margin: 0;background-color:#f5f5f5;">
+<div id="container" style="width:100%;height:300px;margin:0 auto;padding-top:10px;">
+    <div></div>
+</div>
+<script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/echarts.common.min.js"></script>
+
+<script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+option = {
+    backgroundColor:'#ffffff',
+    /*title: {
+        text: '某楼盘销售情况',
+        subtext: '纯属虚构',
+    },*/
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'//line,shadow,cross
+        }
+
+    },
+    legend: {
+        data: ['系列1', '系列2', '系列3']
+    },
+    grid:{
+        //show:true,
+        //borderColor:'#f00',
+        //backgroundColor:'#f7941d',
+        //containLabel:true
+    },
+    dataZoom: [{
+        show:false,
+        type: 'slider',
+        start:0,
+        end:50,
+        //realtime:false
+    }, {
+        type: 'inside',
+        start: 0,
+        end: 50
+    }],
+    xAxis: {
+        data: ['1月', '2月', '3月', '4月', '5月', '6月'],
+        type: 'category',
+        axisLabel:{
+            align:'center'
+        },
+        axisLine:{
+            lineStyle:{
+                color:'#333'
+            }
+        },
+    },
+    yAxis: {
+        type:'value',
+        //name: '人数',
+        min: 0,
+        max: 100,
+        interval: 20,
+        /*axisLabel: {
+            formatter: '{value} 人'
+        },*/
+        axisLine:{
+            lineStyle:{
+                color:'#333'
+            }
+        },
+        splitLine: {
+            show: true,
+            lineStyle:{
+                color:'#ccc'
+            }
+        }
+    },
+    animationDurationUpdate: 1200,
+    series: [{
+        name:'系列1',
+        type: 'bar',
+        label:{
+            normal:{
+                show:false,
+                position:'top',
+                formatter:'{c}'
+            }
+        },
+        itemStyle:{
+            normal:{
+                //color:'#1170ce'
+                color: new echarts.graphic.LinearGradient(
+                    0, 0, 0, 1,
+                    [
+                        {offset: 0, color: '#83bff6'},
+                        {offset: 0.5, color: '#188df0'},
+                        {offset: 1, color: '#1170ce'}
+                    ]
+                )
+            }
+        },
+        barWidth: 10,
+        data: [100, 30, 50, 60,40,80]
+    }, {
+        name:'系列2',
+        type: 'bar',
+        barWidth: 10,
+        label:{
+            normal:{
+                show:false,
+                position:'top',
+                formatter:'{c}'
+            }
+        },
+        itemStyle:{
+            normal:{
+                color:'#6da30f'
+            }
+        },
+        data: [45, 60, 13, 25,30,50,55]
+    }, {
+        name:'系列3',
+        type: 'bar',
+        barWidth: 10,
+        label:{
+            normal:{
+                show:false,
+                position:'top',
+                formatter:'{c}'
+            }
+        },
+        itemStyle:{
+            normal:{
+                color:'#f59210'
+            }
+        },
+        data: [10, 30, 33, 21,40,20]
+    }],
+    //color:['#1170ce','#6da30f','#f59210']
+};
+
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+</script>
+</body>
+
+</html>
