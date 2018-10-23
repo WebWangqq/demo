@@ -148,7 +148,7 @@ function isusername(cla){
 function isPassword(cla){
     if (cla.search(/^\w{6,12}$/)>-1) {
         //(/^[A-Z]+$|^[a-z]+$|^[\d]+$|^[_]+$/g).test(cla) 必须包含大写字母、小写字母、数字、下划线的最少两种，6-12个字符
-        if ((/^[A-Z]+$|^[a-z]+$|^[\d]/).test(cla)) {
+        if ((/^[A-Z]+$|^[a-z]+$|^[\d]+$/g).test(cla)) {
             return false;
         } else {
             return true;

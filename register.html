@@ -241,7 +241,7 @@
         }
     }
     var next = function() {
-        console.log($("#userpassword").val())
+        console.log(isPassword($("#userpassword").val()))
         if ($("#referralCode").val() == "") {
             showTipBox("请输入推荐人代码！");
         } else if(!isusername($("#username").val())){
