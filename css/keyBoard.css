@@ -1,0 +1,93 @@
+@charset "utf-8";
+/*键盘*/
+#editPasswordLight,#editNumLight{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.3);z-index:9800;}
+#editNumLight{background-color:rgba(0,0,0,0);}
+.keyBoardCon{position:fixed;bottom:0;left:0;width:100%;z-index: 9801}
+.keyBoardCon .operate{height:.9rem;margin-top:3px;padding:0 .2rem;line-height:.9rem;font-size:.4rem;background-color:#eff0f4;border-top:1px solid #ddd;}
+.keyBoard{padding:.4rem .1rem .1rem;background-color:#d1d6dc;}
+.keyBoard li{float:left;width:33.3%;padding:0 .1rem;margin-bottom:.2rem;font-size:.6rem;box-sizing:border-box;}
+.keyBoard li span{display:block;width:100%;height:1rem;text-align:center;line-height:1rem;background-color:#fff;border-radius:.1rem;
+-webkit-box-shadow:1px 1px 3px #81878d;
+-moz-box-shadow:1px 1px 3px #81878d;
+box-shadow:1px 2px 3px #81878d;
+}
+.keyBoard li.none span{background-color:#fff4e3}
+.keyBoard li:last-child span{font-size:0;background:#fff url(../images/keyDelete.png) center no-repeat;background-size:30px 30px;}
+.keyBoard li span:active{background-color:#fff4e3;color:#333;}
+/*支付密码*/
+.editPassword{display:none;position:fixed;bottom:0;left:0;width:100%;padding-bottom:5.8rem;background-color:#fff;z-index:9802;}
+.editPassword .passwordItem .title{position:relative;height:.9rem;font-size:.32rem;font-weight:bold;text-align:center;line-height:.9rem;border-bottom:1px solid #eaeaea;}
+.editPassword .passwordItem .text{padding:.2rem;text-align:center;color:#8e8e8e;}
+.editPassword .passwordItem .keyBox{width:6rem;height:.9rem;margin:0 auto;border:1px solid #b1b1b1;border-radius:2px;}
+.editPassword .passwordItem .keyBox li{float:left;position:relative;width:1rem;height:.9rem;border-right:1px solid #b1b1b1;box-sizing:border-box;}
+.editPassword .passwordItem .keyBox li.done:after{content:'';position:absolute;top:50%;left:50%;width:10px;height:10px;margin:-5px 0 0 -5px;background-color:#333;border-radius:50%;}
+.editPassword .keyBoard{position:absolute;bottom:0;left:0;width:100%;padding:0;background-color:#fff;}
+.editPassword .keyBoard li{padding:0;margin:0;border-top:1px solid #ccc;border-right:1px solid #ccc;box-sizing:border-box;}
+.editPassword .keyBoard li span{height:1.3rem;line-height:1.3rem;border-radius:0;
+-webkit-box-shadow:0 0 0 #fff;
+-moz-box-shadow:0 0 0 #fff;
+box-shadow:0 0 0 #fff;
+}
+
+.animated{
+	-webkit-animation-duration:0.8s;
+	animation-duration:0.8s;
+	-webkit-animation-fill-mode:both;
+	animation-fill-mode:both
+}
+@-webkit-keyframes slideUp {
+  0% {
+    -webkit-transform: translateY(1000px);
+    -ms-transform: translateY(1000px);
+    transform: translateY(1000px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    -webkit-transform: translateY(1000px);
+    -ms-transform: translateY(1000px);
+    transform: translateY(1000px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+.slideUp {
+  -webkit-animation-name: slideUp;
+  animation-name: slideUp;
+}
+@-webkit-keyframes slideDown {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(1000px);
+    -ms-transform: translateY(1000px);
+    transform: translateY(1000px);
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(1000px);
+    -ms-transform: translateY(1000px);
+    transform: translateY(1000px);
+  }
+}
+.slideDown {
+  -webkit-animation-name: slideDown;
+  animation-name: slideDown;
+}
+
+/**/

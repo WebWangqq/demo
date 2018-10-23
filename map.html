@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>demo</title>
+<link type="text/css" rel="stylesheet" href="css/swiper.min.css">
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<link type="text/css" rel="stylesheet" href="css/demo2.css">
+<style type="text/css">
+.current{position:absolute;top:0;left:0;width:100%;height:.8rem;padding:0 .2rem;line-height:.8rem;box-sizing:border-box;background-color:#ffffff;z-index:2}
+.trafficIco{position:absolute;top:140px;left:20px;width:35px;height:35px;background:rgba(255,255,255,.8) url(images/trafficIco1.png) no-repeat center;background-size:30px 30px;text-indent:-9999px;overflow:hidden; z-index:3;
+border-radius:3px;
+-webkit-box-shadow: 1px 1px 2px rgba(0,0,0,.4);
+}
+.trafficIco.show{background-image:url(images/trafficIco2.png);}
+
+.map{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1}
+.markerInfo{width:5.6rem;background-color:#ffffff;border-radius:.05rem;
+-webkit-box-shadow:0 0 3px rgba(12, 3, 7, .3);
+-moz-box-shadow:0 0 3px rgba(12, 3, 7, .3);
+box-shadow:0 0 3px rgba(12, 3, 7, .3);
+}
+.markerInfo:after{content:'';position:absolute;bottom:-.14rem;left:50%;width: 0;height: 0;margin-left:-.14rem;
+border-top: .14rem solid #ffffff;
+border-right: .14rem solid transparent ; 
+border-left: .14rem solid transparent;
+}
+.markerInfo .name{padding:.15rem .1rem 0;font-size:.28rem;}
+.markerInfo .address{padding:.1rem;line-height:.4rem;font-size:.24rem;color:#8c8c8c;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:box;display:-moz-box;display:-webkit-box;}
+.markerInfo .address label{display:block;box-flex:1; -moz-box-flex:1; -webkit-box-flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.markerInfo .address span{display:block;margin-left:10px;color:#ff801a;}
+.btnCon .btn{padding:0 .4rem;font-size:.28rem;text-align:center;line-height:.8rem}
+.btnCon .btn:nth-child(1){color:#4e8bed;}
+.btnCon .btn:nth-child(2){color:#ff801a;}
+.infoBox > img{display:none;}
+</style>
+</head>
+
+<body ontouchstart>
+<div class="current">当前位置：<span></span></div>
+<div class="trafficIco">路况</div>
+<div class="map" id="allmap"></div>
+
+<!-- <div class="markerInfo">
+	<div class="name">天津市汇普汽车销售服务有限公司</div>
+	<div class="address"><label>天津市东丽区空港汽车园中路1号</label><span>8.5Km</span></div>
+	<div class="bottomLine"></div>
+	<div class="btnCon clearfix">
+		<div class="left btn">网点详情</div>
+		<div class="right btn">开始导航</div>
+	</div>
+</div> -->
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8MVRhBVC91vlarz99blLYfG2"></script>
+<script type="text/javascript" src="js/InfoBox_min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.js"></script><!-- 路况 -->
+
+<script>
+// 百度地图API功能
+var map = new BMap.Map("allmap");
+map.enableScrollWheelZoom(true); //是否开启滚轮的缩放功能
+var top_left_geolocationIcon=new BMap.Icon("images/map-marker1.png", new BMap.Size(30,30));
+var top_left_navigation = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,offset:new BMap.Size(20,200), type:BMAP_NAVIGATION_CONTROL_LARGE});//地图的平移缩放控件左上角
+var top_left_geolocation = new BMap.GeolocationControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT,offset:new BMap.Size(20,80),showAddressBar:false,locationIcon:top_left_geolocationIcon});//地图的平移缩放控件左上角
+
+map.addControl(top_left_navigation);
+map.addControl(top_left_geolocation);
+
+// 
+
+var traffic = new BMap.TrafficLayer();		// 创建交通流量图层实例
+//map.addTileLayer(traffic);
+//取景框
+
+$(".trafficIco").click(function() {
+	if($(this).hasClass('show')){
+		$(this).removeClass('show');
+		map.removeTileLayer(traffic);
+	}
+	else{
+		$(this).addClass('show')
+		map.addTileLayer(traffic);
+	}
+});
+
+
+ 
+var geolocation = new BMap.Geolocation();
+var geocoder=new BMap.Geocoder();
+var lastInfoBox
+var opts={
+	offset:new BMap.Size(0, 24),
+	"closeIconMargin":"2px",
+	"closeIconUrl":"images/deleteIcon.png",
+	"align":INFOBOX_AT_TOP,
+	"enableAutoPan":true
+}
+var infoWindow
+var markers=[]
+var markerClick=false
+
+geolocation.getCurrentPosition(function(r){
+	if(this.getStatus() == BMAP_STATUS_SUCCESS){
+		//alert("要获取您的位置")
+		var pt=r.point
+		var mylng=r.point.lng
+		var mylat=r.point.lat
+
+		geocoder.getLocation(pt,function(res){
+			var addressComponents=res.addressComponents
+			$(".current span").html(addressComponents.city+addressComponents.province+addressComponents.district+addressComponents.street+addressComponents.streetNumber)
+			//map.centerAndZoom(addressComponents.province,10);
+		})
+		var mypoint = new BMap.Point(r.point.lng,r.point.lat);
+		map.centerAndZoom(mypoint,10);
+
+		markerClick=false
+		$.getJSON('data/mapdata.json',function(data){
+			var mapdataJson=JSON.stringify(data)
+			localStorage.setItem("mapdatas", mapdataJson)
+			$.each(data,function(i, item) {
+				var point=new BMap.Point(item.lng,item.lat);
+				var markerIcon=new BMap.Icon("images/markers/map-marker"+(i+1)+".png", new BMap.Size(30,30));
+				var marker=new BMap.Marker(point,{icon:markerIcon})
+				markers.push(marker)
+				map.addOverlay(marker)
+
+				markers[i].addEventListener("click",function(e){
+					
+					markerClick=true
+					var markerIconCu=new BMap.Icon("images/markers/map-marker-cu"+(i+1)+".png", new BMap.Size(30,30));
+					markers[i].setIcon(markerIconCu)
+					for(var j=0;j<markers.length;j++){
+						if(j!=i){
+							var ico2=new BMap.Icon("images/markers/map-marker"+(j+1)+".png", new BMap.Size(30,30));
+							markers[j].setIcon(ico2)
+						}
+					}
+					item.juli = formatDistance(GetDistance(item.lat,item.lng,mylat,mylng))
+					var content='<div class="markerInfo"><div class="name">'+item.dealerName+'</div><div class="address"><label>'+item.address+'</label><span>'+item.juli+'</span></div><div class="bottomLine"></div><div class="btnCon clearfix"><div class="left btn" id="toDetail">网点详情</div><div class="right btn" id="toGPS">开始导航</div></div></div>'
+					infoWindow = new BMapLib.InfoBox(map,content,opts);  // 创建信息窗口对象 
+
+					if(lastInfoBox){
+						lastInfoBox.close()
+					}
+					lastInfoBox=infoWindow
+					infoWindow.open(markers[i])
+
+					$("#toDetail").bind("touchend",function(e){
+						window.location.href="mapDetail.html?id="+item.id
+					})
+					$("#toGPS").bind("touchend",function(){
+						var hp = "//api.map.baidu.com/direction?origin=latlng:" + mylat + "," + mylng
+							+ "|name:我的位置&destination=latlng:"+item.lat+","+item.lng+"|name:"+item.address+"&mode=driving&region=天津市&output=html&src=详情.html";
+						window.location = hp;
+					})
+				});	
+			});
+
+			map.addEventListener("click",function(){
+				if(markerClick==false){
+					console.log("点击地图")
+					if(infoWindow){
+						infoWindow.close()
+						for(var i=0;i<markers.length;i++){
+							var ico2=new BMap.Icon("images/markers/map-marker"+(i+1)+".png", new BMap.Size(30,30));
+							markers[i].setIcon(ico2)
+						}
+					}
+				}
+				else{
+					console.log("点击的是marker")
+					markerClick=false
+				}
+			})
+		})
+	}
+	else {
+		alert('failed'+this.getStatus());
+	}
+},{enableHighAccuracy: true})
+	
+/*
+
+*/
+</script>
+</body>
+</html>

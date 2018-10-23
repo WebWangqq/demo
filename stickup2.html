@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+<title>注册</title>
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<style type="text/css">
+.banner{height:4rem}
+.filter {position:relative;width:100%;height:0.8rem;background-color:#fff;border-bottom:1px #d6d6d6 solid;}
+
+.filter.fixed{position:fixed;top:0;left:0;z-index:9904}
+.filterItem {float:left;width:33.3%;box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;}
+.filterItem a {display:block; height:0.8rem; line-height:0.8rem; text-align:center;}
+.filterItem em {display:inline-block;height:0.8rem;color:#595757; overflow:hidden; text-overflow:ellipsis; vertical-align:middle; white-space:nowrap;}
+.first{position:relative;}
+.first:before{content: "";position: absolute;bottom: 0;left:0;width:100%;height:0;border-bottom:1px solid #004da0;}
+.showSub2 em{color:#004ea2;}
+
+.subFilter {display:none; position:absolute; left:0; top:0.82rem; width:100%;background-color:#fff;z-index:9905;}
+.subFilter li{height:0.8rem;padding-left:0.4rem;line-height:0.8rem;border-bottom:1px #d6d6d6 solid;}
+.subFilter.show{display:block;}
+
+.list{padding:0 0.35rem;}
+.list li{padding:0.2rem 0.9rem 0.2rem 0;background:url(../images/arrowR.png) 98% center no-repeat;background-size:0.23rem 0.4rem;border-bottom:1px #d6d6d6 solid;}
+.level,.touxiang,.info{display:table-cell;vertical-align:middle;}
+.level{min-width:0.5rem;text-align:center;font-size:0.48rem;color:#666666;}
+.list li:nth-child(1) .level,.list li:nth-child(2) .level,.list li:nth-child(3) .level{background:url(../images/level1.png) center no-repeat;background-size:0.41rem 0.63rem;text-indent:-999px;overflow:hidden;}
+.list li:nth-child(2) .level{background-image:url(../images/level2.png);}
+.list li:nth-child(3) .level{background-image:url(../images/level3.png);}
+.touxiang{min-width:1.05rem;padding:0 0.15rem;}
+.touxiang img{display:block;width:1.05rem;height:1.05rem;border:1px #d6d6d6 solid;border-radius:0.1rem;overflow:hidden;}
+.info{width:3.7rem;}
+.info li{width:3.7rem;padding:0;color:#999;font-size:0.28rem;background:none;border-bottom:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.info li.user span.name{font-size:0.34rem;color:#000;}
+.arrow {position:relative; display:inline-block; width:0.40rem; height:0.24rem; vertical-align:middle; overflow:hidden;}
+.arrow:before, .arrow:after {position:absolute; left:0.05rem; top:0.07rem; width:0; height:0; border:0.13rem solid #fff;; content:" "; font-size:0;}
+.arrow:before, .arrow:after {border-color:transparent; border-top-color:#595757;}
+.arrow:after {top:0.05rem; border-top-color:#fff;}
+.arrow.show:before{border-top-color:#004ea2;}
+.arrow.show {
+	transform:rotateZ(-180deg);
+	-webkit-transform:rotateZ(-180deg);
+	-moz-transform:rotateZ(-180deg);
+	-o-transform:rotateZ(-180deg);
+}
+</style>
+</head>
+<body>
+<!-- <div id="header">header</div>
+<div id="nav">nav</div>
+<div id="content">
+	<div class="main">main</div>
+	<div class="aside">aside</div>
+</div> -->
+<div>
+	<div class="banner" id="header"></div>
+	<div class="filter" id="filter">
+		<div class="filterItem"><a href="javascript:void(0)"><em class="first">TOP10排行榜</em></a></div>
+	    <div class="filterItem">
+	        <a class="showSub" href="javascript:void(0)"><em>个人</em><span class="arrow"></span></a>
+	        <ul class="subFilter">
+	            <li><label class="txt">个人1</label></li>
+	            <li><label class="txt">个人2</label></li>
+	        </ul>
+	    </div>
+	    <div class="filterItem">
+	        <a class="showSub" href="javascript:void(0)"><em>当天</em><span class="arrow"></span></a>
+	        <ul class="subFilter">
+	            <li><label class="txt">最近3天</label></li>
+	            <li><label class="txt">最近5天</label></li>
+	        </ul>
+	    </div>
+	</div>
+	<!--filter end-->
+	<ul class="list">
+		<li>
+	    	<span class="level">1</span>
+	        <div class="touxiang"><img src="images/touxiang.jpg" /></div>
+	        <ul class="info">
+	        	<li class="user"><span class="name">张晓强</span><span>（NO.20542）</span></li>
+	            <li>滨海分行</li>
+	        </ul>
+	    </li>
+	    <li>
+	    	<span class="level">2</span>
+	        <div class="touxiang"><img src="images/touxiang.jpg" /></div>
+	        <ul class="info">
+	        	<li class="user"><span class="name">张晓强</span><span>（NO.20542）</span></li>
+	            <li>滨海新区大港迎新大道营业滨海新区大港迎新大道营业滨海新区大港迎新大道营业</li>
+	        </ul>
+	    </li>
+	    <li>
+	    	<span class="level">3</span>
+	        <div class="touxiang"><img src="images/touxiang.jpg" /></div>
+	        <ul class="info">
+	        	<li class="user"><span class="name">张晓强</span><span>（NO.20542）</span></li>
+	            <li>滨海分行</li>
+	        </ul>
+	    </li>
+	    <li>
+	    	<span class="level">4</span>
+	        <div class="touxiang"><img src="images/touxiang.jpg" /></div>
+	        <ul class="info">
+	        	<li class="user"><span class="name">张晓强</span><span>（NO.20542）</span></li>
+	            <li>滨海分行</li>
+	        </ul>
+	    </li>
+	    <li>
+	    	<span class="level">5</span>
+	        <div class="touxiang"><img src="images/touxiang.jpg" /></div>
+	        <ul class="info">
+	        	<li class="user"><span class="name">张晓强</span><span>（NO.20542）</span></li>
+	            <li>滨海分行</li>
+	        </ul>
+	    </li>
+	    <li>
+	    	<span class="level">6</span>
+	        <div class="touxiang"><img src="images/touxiang.jpg" /></div>
+	        <ul class="info">
+	        	<li class="user"><span class="name">张晓强</span><span>（NO.20542）</span></li>
+	            <li>滨海分行</li>
+	        </ul>
+	    </li>
+	    <li>
+	    	<span class="level">7</span>
+	        <div class="touxiang"><img src="images/touxiang.jpg" /></div>
+	        <ul class="info">
+	        	<li class="user"><span class="name">张晓强</span><span>（NO.20542）</span></li>
+	            <li>滨海分行</li>
+	        </ul>
+	    </li>
+	    <li>
+	    	<span class="level">8</span>
+	        <div class="touxiang"><img src="images/touxiang.jpg" /></div>
+	        <ul class="info">
+	        	<li class="user"><span class="name">张晓强</span><span>（NO.20542）</span></li>
+	            <li>滨海分行</li>
+	        </ul>
+	    </li>
+	    <li>
+	    	<span class="level">9</span>
+	        <div class="touxiang"><img src="images/touxiang.jpg" /></div>
+	        <ul class="info">
+	        	<li class="user"><span class="name">张晓强</span><span>（NO.20542）</span></li>
+	            <li>滨海分行</li>
+	        </ul>
+	    </li>
+	    <li>
+	    	<span class="level">10</span>
+	        <div class="touxiang"><img src="images/touxiang.jpg" /></div>
+	        <ul class="info">
+	        	<li class="user"><span class="name">张晓强</span><span>（NO.20542）</span></li>
+	            <li>滨海分行</li>
+	        </ul>
+	    </li>
+	</ul>
+	<!--list end-->
+</div>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/stickUp.min.js"></script>
+<script type="text/javascript">
+$(function($) {
+	$(document).ready( function() {
+		$('#filter').stickUp();
+	});
+});
+$(".showSub").click(function(){
+	if($(this).hasClass("showSub2")){
+		$(".filter").removeClass("fixed");
+		$(this).removeClass("showSub2");
+		$(this).find(".arrow").removeClass("show");
+		$(".subFilter").removeClass("show");
+		$("#overlay").hide();
+		$('body').unbind("touchmove");
+	}
+	else{
+		$(".filter").addClass("fixed");
+		$(".showSub").removeClass("showSub2");
+		$(".arrow").removeClass("show");
+		$(".subFilter").removeClass("show");
+		$(this).addClass("showSub2").next().addClass("show");
+		$(this).find(".arrow").addClass("show");
+		$("#overlay").show();
+		$("html, body").scrollTop($(".banner").height());
+		$('body').on('touchmove', function(event) { event.preventDefault(); });
+	}
+	
+})	
+$(".subFilter li").click(function(){
+	$(".filter").removeClass("fixed");
+	$(".showSub").removeClass("showSub2");
+	$(".arrow").removeClass("show");
+	$(this).parent().removeClass("show");
+	$(this).parents(".filterItem").find("em").text($(this).text());
+	$("#overlay").hide();
+})
+$("#overlay").click(function(){
+	$(this).hide();
+	$(".showSub").removeClass("showSub2");
+	$(".arrow").removeClass("show");
+	$(".subFilter").removeClass("show");
+})
+</script>
+</body>
+</html>

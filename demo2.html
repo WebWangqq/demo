@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+<link type="text/css" rel="stylesheet" href="css/swiper.min.css">
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<link type="text/css" rel="stylesheet" href="css/demo2.css">
+</head>
+
+<body ontouchstart>
+
+<div class="quanWrap">
+	<!-- <div class='quanItemCon'>
+		<div class='imgCon'>
+			<div class="img" data-index="0" style='background-image:url(images/bg1.png)'></div>
+			<div class="img" data-index="1" style='background-image:url(images/bg1.png)'></div>
+			<div class="img" data-index="2" style='background-image:url(images/bg1.png)'></div>
+			<div class="img" data-index="3" style='background-image:url(images/bg1.png)'></div>
+		</div>
+		<div class='quanCon'>
+			<div class='shopInfo'>
+				<div>名字</div>
+				<div>13.4km · 空港经济区</div>
+			</div>
+			<div class='sjs'>
+				<div>
+					<span>商家说："</span>
+					<span>我的商家说</span>
+					<span>"</span>
+				</div>
+			</div>
+		</div>
+		<div class='activityCon clearfix'>
+			<div class='left zheCon'>
+				<img class='num3' src='images/num/3@2x.png' />
+				<img class='dot' src='images/_@2x.png' />
+				<img class='num9' src='images/num/9@2x.png' />
+				<img class='zhe' src='images/a_zhe@2x.png' />
+			</div>
+			<div class="right colorRed">03:20:00后领取</div>
+		</div>
+	</div> -->
+</div>
+
+<!--  -->
+
+<div class='swiper-container previewImg'>
+    <div class='swiper-wrapper'>
+       <!--  <div class='swiper-slide item'>
+            <img src="http://api.qujie365.com/upload/20180814161731297872.jpg">
+        </div> -->
+    </div>
+    <div class='promotion-pagination'></div>
+</div>
+
+<!--  -->
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script>
+var loaddata
+var imgdata1=[]
+var previewImg = new Swiper('.previewImg', {
+	//initialSlide:index,
+    pagination: '.promotion-pagination',
+    paginationType :'bullets',
+    loop: false,
+    //autoplay:3000,
+    grabCursor: true, 
+    //paginationClickable: true,
+    autoplayDisableOnInteraction:false,
+    onSlideChangeEnd:function(swiper){
+        console.log(swiper.activeIndex)
+        document.title = (swiper.activeIndex+1)+'/'+imgdata1.length
+    }
+});
+
+var loadMore=function (){
+	$.ajax({
+		type:'get',
+		url: 'data/getRobList.json',
+		dataType: 'json',
+		async:false,
+		success:function(res){
+			var html="";
+			loaddata=res.data
+			$.each(res.data,function(i,item){
+				html+="<div class='quanItemCon'>"
+					+"<div class='imgCon'>"
+					for(var j=0;j<item.AbbreviationsImgPath.length;j++){
+						html+="<div class='img' data-itemindex='"+i+"' data-index='"+j+"' data-src='"+item.AbbreviationsImgPath[j]+"' style='background-image:url("+item.AbbreviationsImgPath[j]+")'></div>"
+						
+					}
+				html+="</div>"//imgCon end
+				html+="<div class='quanCon'>"
+				html+="<div class='shopInfo'><div>"+item.ShopName+"</div><div>"+formatDistance(item.ShowDistance)+" · "+item.DistrictName+"</div></div>"
+				if(item.Content!=null && item.Content!=""){
+					html+="<div class='sjs'><div><span>商家说：\"\</span><span>"+item.Content+"</span><span>\"\</span></div></div>"					
+				}
+				html+="</div>"//quanCon end
+				html+="<div class='activityCon clearfix'><div class='left zheCon'>"
+				html+="<img class='num"+Number(item.DiscountCash.slice(0, 1))+"' src='images/num/"+Number(item.DiscountCash.slice(0, 1))+"@2x.png' />"
+				html+="<img class='dot' src='images/_@2x.png' />"
+				html+="<img class='num"+Number(item.DiscountCash.slice(2, 3))+"' src='images/num/"+Number(item.DiscountCash.slice(2, 3))+"@2x.png' />"
+				html+="<img class='zhe' src='images/a_zhe@2x.png' />"
+				html+="</div></div>"
+				html+="</div>"
+			})
+			$(".quanWrap").html(html);
+			
+			$(".imgCon .img").click(function(e) {
+				var src=e.currentTarget.dataset.src;
+				if(src!="http://api.qujie365.com/upload/defaultImg/tstj_default.png"){
+					var itemIndex=e.currentTarget.dataset.itemindex
+					var index=e.currentTarget.dataset.index
+					var imgdata=loaddata[itemIndex].ImgPath
+					
+					var imghtml=""
+					for(var i1=0;i1<imgdata.length;i1++){
+						if(imgdata[i1]!="http://api.qujie365.com/upload/defaultImg/tstj_default.png"){
+							imgdata1.push(imgdata[i1])
+						}
+					}
+					$.each(imgdata1,function(imgindex, imgitem) {
+						imghtml+="<div class='swiper-slide item'><img src='"+imgitem+"' /></div>"
+					});
+					$(".previewImg .swiper-wrapper").html(imghtml);
+
+					document.title = (Number(index)+1)+'/'+imgdata1.length
+					$(".previewImg").show();
+				    previewImg.update()
+				    previewImg.slideTo(index,0,false) 
+
+				    $(".previewImg img").click(function(){
+				    	imgdata1=[]
+					    $(".previewImg").hide()
+					    document.title=""
+					})
+				}
+			});
+		}
+	});
+}
+
+
+
+$(document).ready(function(){
+	loadMore() 
+})	
+</script>
+</body>
+</html>

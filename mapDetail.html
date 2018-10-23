@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html style="font-size:50px;">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>服务商详情</title>
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<style type="text/css">
+.branchDetail ul{padding-left:.35rem;margin-bottom:.3rem;background-color:#fff;}
+.branchDetail ul li{position:relative;padding:.25rem 0.1rem .25rem 0;border-bottom:1px solid #eaeaea;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:box;display:-moz-box;display:-webkit-box;}
+.branchDetail ul li:last-child{border-bottom:none;}
+.branchDetail ul li label{display:block;min-width:1.6rem;padding-right:.1rem;}
+.branchDetail ul li .info{position:relative;box-flex:1; -moz-box-flex:1; -webkit-box-flex:1;}
+.branchDetail ul li .link{position:absolute;top:50%;right:.25rem;width:1.2rem;height:.56rem;margin:-.28rem 0 0 0;line-height:.56rem;font-size:.26rem;}
+.branchDetail .map{height:4.25rem;margin:0 .35rem;}
+.branchDetail .map .mapImg{max-width:100%;}
+</style>
+</head>
+
+<body ontouchstart>
+<div  class="branchDetail">
+	<ul class="info">
+		<!-- <li>
+			<label>网点名称</label>
+			<div class="info">吉林龙井农村商业银行阳光分理处</div>
+		</li>
+		<li>
+			<label>联系电话</label>
+			<div class="info">(0433)2354809</div>
+			<a class="btnMain link" href="tel:(0433)2354809">拨号</a>
+		</li>
+		<li>
+			<label>地址</label>
+			<div class="info">延吉市前进路41-3号</div>
+		</li>
+		<li>
+			<label>所属支行</label>
+			<div class="info">营口分行营业部</div>
+		</li> -->
+	</ul>
+	<div class="map" id="map"></div>
+</div>
+<!--//container end-->
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8MVRhBVC91vlarz99blLYfG2"></script>
+<script type="text/javascript">
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+	var r = window.location.search.substr(1).match(reg); //匹配目标参数
+	if (r != null) return unescape(r[2]); return null; //返回参数值
+}
+$(document).ready(function(){
+	var id=getQueryString('id');
+	var mapdatas=JSON.parse(window.localStorage.getItem("mapdatas"));
+	console.log(mapdatas)
+	$.each(mapdatas,function(i,item){
+		if(id==item.id){
+
+			var html="<li><label>经销商名称</label><div class='info'>"+item.dealerName+"</div></li>"
+					+"<li><label>联系电话</label><div class='info'>"+item.tel+"</div><a class='btnMain link' href='tel:"+item.tel+"'>拨号</a></li>"
+					+"<li><label>地址</label><div class='info'>"+item.address+"</div></li>"
+			$(".info").html(html)
+			var map = new BMap.Map("map");          
+			map.centerAndZoom(new BMap.Point(item.lng, item.lat), 14);
+			var new_point=new BMap.Point(item.lng, item.lat)
+			var myIcon=new BMap.Icon("images/map-marker.png", new BMap.Size(30,30));
+			var marker = new BMap.Marker(new_point,{icon:myIcon});  // 创建标注
+			map.addOverlay(marker);              // 将标注添加到地图中
+			map.panTo(new_point);  
+		}
+	})
+})
+
+</script>
+</body>
+</html>

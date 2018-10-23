@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html style="font-size:50px;">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>我的资产</title>
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<style>
+#myCanvas{display:block;width:100%;margin:0 auto;}
+</style>
+</head>
+
+<body>
+
+<div id="container" style="margin-top:1rem;">
+	<div class="itemCon">
+		<div class="totalItem"><canvas id="myCanvas" width="850" height="510"></canvas></div>
+	</div>
+
+</div>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript">
+
+function draw(data){
+    var myCanvas=document.getElementById('myCanvas');
+    var ctx=myCanvas.getContext('2d');
+    var radius=150;//圆半径
+    var circleX=myCanvas.width/2;//圆点x
+    var circleY=myCanvas.height/2;//圆点y
+    var startAngle=-Math.PI*0.5,//起始弧度
+        endAngle=-Math.PI*0.5//结束弧度
+        total=0;
+    for(var j=0;j<data.length;j++){
+        total+=data[j].value;
+    }
+    if(total==0){
+        ctx.fillStyle="#8e8e8e";
+        ctx.font="30px 微软雅黑";
+        ctx.textAlign="center";
+        ctx.fillText("我的余额与在投资金均暂无数据！",circleX,circleY);
+    }
+    else{
+        for (var i = 0; i < data.length; i++){
+            if(data[i].value!=0){
+                endAngle = endAngle + (data[i].value/total) * Math.PI * 2; //结束弧度  
+                ctx.beginPath();
+                ctx.moveTo(circleX,circleY);
+                ctx.arc(circleX,circleY,radius,startAngle,endAngle,false);
+                ctx.closePath();
+                ctx.fillStyle=data[i].color;
+                ctx.fill();
+                
+                //第一部分
+                if(startAngle<0 && (endAngle+startAngle)<0){
+                    radiusAngle=(endAngle-startAngle)/2+startAngle;//弧度中心角度
+                    radiusX=circleX+(radius+20)*Math.cos(radiusAngle);//弧度中心x
+                    radiusY=circleY+(radius+20)*Math.sin(radiusAngle);//弧度中心y
+                    shortX=radiusX+20*Math.cos(Math.PI/4);//折线
+                    shortY=radiusY-20*Math.sin(Math.PI/4);
+                    textX=shortX+200;
+                    textY=shortY-5;
+                    ctx.textAlign="right";
+               }
+                //第二部分
+                else if((startAngle<0 && 0<=(endAngle+startAngle) &&(endAngle+startAngle)<Math.PI) || (0<=startAngle && startAngle<0.5*Math.PI && (endAngle+startAngle)<=Math.PI)){
+                    radiusAngle=(endAngle-startAngle)/2+startAngle;//弧度中心角度
+                    radiusX=circleX+(radius+20)*Math.cos(radiusAngle);//弧度中心x
+                    radiusY=circleY+(radius+20)*Math.sin(radiusAngle);//弧度中心y
+                    shortX=radiusX+20*Math.cos(Math.PI/4);//折线
+                    shortY=radiusY+20*Math.sin(Math.PI/4);
+                    textX=shortX+200;
+                    textY=shortY-5;
+                    ctx.textAlign="right";
+                }
+                //第三部分
+                else if((startAngle<0 &&(endAngle+startAngle)>=Math.PI) || (0<=startAngle && startAngle<0.5*Math.PI && (endAngle+startAngle)>Math.PI) || (0.5*Math.PI<=startAngle && startAngle<Math.PI && (endAngle+startAngle)/2<Math.PI)){
+                    radiusAngle=(endAngle-startAngle)/2+startAngle-0.5*Math.PI;//弧度中心角度
+                    radiusX=circleX-(radius+20)*Math.sin(radiusAngle);//弧度中心x
+                    radiusY=circleY+(radius+20)*Math.cos(radiusAngle);//弧度中心y
+                    shortX=radiusX-20*Math.sin(Math.PI/4);//折线
+                    shortY=radiusY+20*Math.cos(Math.PI/4);
+                    textX=shortX-200;
+                    textY=shortY-5;
+                    ctx.textAlign="left";
+                }
+                else{
+                    radiusAngle=(endAngle+startAngle)/2-Math.PI;//弧度中心角度
+                    radiusX=circleX-(radius+20)*Math.cos(radiusAngle);//弧度中心x
+                    radiusY=circleY-(radius+20)*Math.sin(radiusAngle);//弧度中心y
+                    shortX=radiusX-20*Math.cos(Math.PI/4);//折线
+                    shortY=radiusY-20*Math.sin(Math.PI/4);
+                    textX=shortX-200;
+                    textY=shortY-5;
+                    ctx.textAlign="left";
+                }
+                /*小圆点开始*/
+                ctx.beginPath();
+                ctx.moveTo(radiusX,radiusY);
+                ctx.arc(radiusX,radiusY,4,0,2*Math.PI,false);
+                ctx.closePath();
+                ctx.fillStyle=data[i].color;
+                ctx.fill();
+                /*小圆点end*/
+
+                /*折线*/
+                ctx.lineWidth=2;
+                ctx.moveTo(radiusX,radiusY);
+                ctx.lineTo(shortX,shortY); //折现
+                ctx.lineTo(textX,shortY);//文字线
+                ctx.strokeStyle=data[i].color;
+                ctx.stroke();
+                /*折线end*/
+                ctx.fillStyle="#8e8e8e";
+                ctx.textBaseline="bottom";
+                ctx.font="30px 微软雅黑";
+                ctx.fillText(data[i].value,textX,textY);
+                ctx.textBaseline="top";
+                ctx.fillText(data[i].name,textX,textY+8);
+                startAngle = endAngle; //设置起始弧度        
+            }               
+        }
+        //中心白圈
+        ctx.beginPath();
+        ctx.moveTo(circleX,circleY);
+        ctx.arc(circleX,circleY,radius-80,0,2*Math.PI,false);
+        ctx.closePath();
+        ctx.fillStyle="#fff";
+        ctx.fill();
+    }
+    
+}
+function init() {
+    var data_arr=[
+        { value: 10, name: '直接访问' , color:'#a0dca0' },
+        { value: 310, name: '邮件营销' , color:'#31c27c'},
+        { value: 234, name: '联盟广告' , color:'#f8e399'},
+        { value: 135, name: '视频广告' , color:'#f7941d'}
+    ]
+    draw(data_arr);
+}
+window.onload =init;
+
+</script>
+</body>
+</html>

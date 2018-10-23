@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html style="font-size:50px;">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>网点查询</title>
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<style type="text/css">
+.navtabCon{position:fixed;top:0;left:0;width:100%;height:1rem;line-height:1rem;font-size:0;background-color:#ffffff;}
+.navtabCon:after{content:'';position: absolute;left:0;bottom:0;width:100%;height:1px;background-color:#dcdcdc;
+-webkit-transform: scaleY(0.5);
+-moz-transform: scaleY(0.5);
+-ms-transform: scaleY(0.5);
+-o-transform: scaleY(0.5);
+transform: scaleY(0.5);
+}
+.navtabCon .item{position:relative;display:inline-block;width:50%;text-align:center;font-size:.3rem;}
+.navtabCon .item:after{content:'';position:absolute;top:50%;left:0;width:1px;height:.6rem;margin-top:-.3rem;background-color:#dcdcdc;
+-webkit-transform: scaleX(0.5);
+-moz-transform: scaleX(0.5);
+-ms-transform: scaleX(0.5);
+-o-transform: scaleX(0.5);
+transform: scaleX(0.5);
+}
+.navtabCon .current{color:#ff801a;}
+.branchWrap{margin-top:1.2rem;}
+.branchWrap a{display:block;background-color:#fff;}
+.branchWrap a:active{background-color:#e6e6e6}
+.branchWrap li{padding:.2rem .3rem;margin-bottom:.2rem;}
+.branchWrap li .name{padding-bottom:.1rem;}
+.branchWrap li .ico{position:relative;padding-left:.4rem;color:#8e8e8e;font-size:.26rem;line-height:.4rem;}
+.branchWrap li .ico:before{content:'';position:absolute;top:.05rem;left:0;width:.3rem;height:.3rem;background:url(images/branchIco1.png) no-repeat;background-size:.3rem .3rem;}
+.branchWrap li .ico.address:before{background-image:url(images/branchIco2.png)}
+.branchWrap li .ico.address{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:box;display:-moz-box;display:-webkit-box;}
+.branchWrap li .address label{display:block;box-flex:1; -moz-box-flex:1; -webkit-box-flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.branchWrap li .address span{display:block;margin-left:10px;color:#ff801a;}
+</style>
+</head>
+
+<body ontouchstart>
+<div class="navtabCon">
+	<div class="item current" aVal="1">距离最近</div>
+	<div class="item" aVal="2">综合排序</div>
+</div>
+<ul class="branchWrap">
+	<!-- <a href="branchDetail1.html">
+		<li>
+			<div class="name">1.吉林龙井农村商业银行阳光分理处</div>
+			<div class="ico tel">(0433)2354809</div>
+			<div class="ico address"><label>天津市东丽区空港汽车园中路1号</label><span>8.5Km</span></div>
+		</li>
+	</a> -->
+</ul>
+<!--//container end-->
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8MVRhBVC91vlarz99blLYfG2"></script>
+<script type="text/javascript">
+
+var mylng
+var mylat
+var geolocation = new BMap.Geolocation();
+var dataVal
+var aVal
+function load(){
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			mylng=r.point.lng
+			mylat=r.point.lat
+			$.getJSON('data/mapdata.json',function(data){
+				var mapdataJson=JSON.stringify(data)
+				localStorage.setItem("mapdatas", mapdataJson)
+				$.each(data,function(i, item) {
+					item.juli = GetDistance(item.lat,item.lng,mylat,mylng);
+				})
+				console.log(data)
+				aVal=$(".navtabCon .current").attr("aVal")
+				if(aVal==1){
+					dataVal=data.sort(commpare('juli'))
+				}
+				else{
+					dataVal=data.sort(commpare('id'))
+				}
+				var html='';
+
+				$.each(dataVal,function(i, item) {
+					html+="<a href='mapDetail.html?id="+item.id+"'><li>"
+						+"<div class='name'>"+(i+1)+"."+item.dealerName+"</div>"
+						+"<div class='ico tel'>"+item.tel+"</div>"
+						+"<div class='ico address'><label>"+item.address+"</label><span>"+formatDistance(item.juli)+"</span></div></li></a>"
+				})
+				$(".branchWrap").html(html);
+			})
+		}
+		else {
+			alert('failed'+this.getStatus());
+		}
+	},{enableHighAccuracy: true})
+}
+
+$(".navtabCon .item").click(function(event) {
+	$(this).addClass('current').siblings().removeClass('current')
+	load()
+});
+
+$(document).ready(function() {
+	load()
+});
+</script>
+</body>
+</html>

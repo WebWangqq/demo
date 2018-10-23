@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+<title>注册</title>
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<link type="text/css" rel="stylesheet" href="css/keyBoard.css">
+<!--//选择时间start-->
+<link rel="stylesheet" type="text/css" href="css/mobiscroll.scroller.css" />
+<link rel="stylesheet" type="text/css" href="css/mobiscroll.scroller.android-ics.css" />
+<link rel="stylesheet" type="text/css" href="css/mobiscroll.animation.css" />
+<!--//选择时间end-->
+<link rel="stylesheet" href="css/LArea.min.css">
+<!--城市选择-->
+</head>
+
+<body ontouchstart>
+<!-- <div id="navBar">
+    <a class="goBack" href="">返回</a>
+    <p>注册</p>
+</div> -->
+
+
+<div id="container">
+    <div class="formWrap">
+        <ul class="formInfo">
+            <li>
+                <div class="info"><input id="referralCode" class="field mustFill" type="tel" placeholder="推荐人代码(必填)" /></div>
+            </li>
+        </ul>
+        <ul class="formInfo">
+            <li>
+                <label>手机号</label>
+                <div class="info"><input id="telphone" class="field mustFill" type="tel" placeholder="请输入手机号" maxlength="13" onkeyup="formatMobile(this)" /></div>
+            </li>
+            <li>
+                <label>验证码</label>
+                <div class="info"><input id="yzm" class="field mustFill" type="tel" placeholder="请输入验证码" data-length="6" disabled=true /></div>
+                <span id="yzmBtn" class="yzm colorMain colorGray" onclick="sendCode($(this))">发送验证码</span>
+            </li>
+            <li>
+                <label>开始时间</label>
+                <div class="info">
+                    <input id="beginTime" class="field" type="text" placeholder="开始时间" readonly unselectable="on" onfocus="this.blur()" />
+                </div>
+            </li>
+            <li>
+                <label>结束时间</label>
+                <div class="info">
+                    <input id="endTime" class="field" type="text" placeholder="结束时间" readonly unselectable="on" onfocus="this.blur()" />
+                </div>
+            </li>
+            <li>
+                <label>地区</label>
+                <div class="info">
+                    <input id="city" class="field" type="text" placeholder="常住地(必选)" readonly unselectable="on" onfocus="this.blur()" />
+                </div>
+            </li>
+        </ul>
+
+        <form class="formInfo" action="http://www.baidu.com">
+            <li>
+                <div class="info"><input class="field" type="search" placeholder="请输入搜索内容" /></div>
+            </li>
+        </form>
+
+        
+        <div class="agreementTip colorGray">注册及表示您同意<a class="colorMain textUnder" onclick="showAgreementBox('registerAgreement');">《吉龙汇财平台注册协议》</a>的相关规定</div>
+        <!-- <div class="num">68</div> -->
+    </div>
+    <div id="btnMainCon"><a class="btnMain btnGray" onclick="next()">下一步</a></div>
+    
+</div>
+<!--//container end-->
+
+<!--//-->
+
+<!--//协议-->
+<div class="lightBox agreementBox" id="registerAgreement">
+    <div class="title colorMain">沿海银行注册协议</div>
+    <div class="textCon">
+        <div class="con">
+            <p>为明确双方权利义务，规范双方业务行为，申请龙井银行个人网上银行的客户（以下简称“甲方”）、龙井银行股份有限公司（含所属各分支机构，以下简称“乙方”），本着自愿、平等、互惠、互利的愿则，就个人网上银行服务的相关事宜达成本协议。</p>
+            <p>为明确双方权利义务，规范双方业务行为，申请龙井银行个人网上银行的客户（以下简称“甲方”）、龙井银行股份有限公司（含所属各分支机构，以下简称“乙方”），本着自愿、平等、互惠、互利的愿则，就个人网上银行服务的相关事宜达成本协议。</p>
+            <p>为明确双方权利义务，规范双方业务行为，申请龙井银行个人网上银行的客户（以下简称“甲方”）、龙井银行股份有限公司（含所属各分支机构，以下简称“乙方”），本着自愿、平等、互惠、互利的愿则，就个人网上银行服务的相关事宜达成本协议。</p>
+            <p>为明确双方权利义务，规范双方业务行为，申请龙井银行个人网上银行的客户（以下简称“甲方”）、龙井银行股份有限公司（含所属各分支机构，以下简称“乙方”），本着自愿、平等、互惠、互利的愿则，就个人网上银行服务的相关事宜达成本协议。</p>
+            <p>为明确双方权利义务，规范双方业务行为，申请龙井银行个人网上银行的客户（以下简称“甲方”）、龙井银行股份有限公司（含所属各分支机构，以下简称“乙方”），本着自愿、平等、互惠、互利的愿则，就个人网上银行服务的相关事宜达成本协议。</p>
+            <p>为明确双方权利义务，规范双方业务行为，申请龙井银行个人网上银行的客户（以下简称“甲方”）、龙井银行股份有限公司（含所属各分支机构，以下简称“乙方”），本着自愿、平等、互惠、互利的愿则，就个人网上银行服务的相关事宜达成本协议。</p>
+            <p>为明确双方权利义务，规范双方业务行为，申请龙井银行个人网上银行的客户（以下简称“甲方”）、龙井银行股份有限公司（含所属各分支机构，以下简称“乙方”），本着自愿、平等、互惠、互利的愿则，就个人网上银行服务的相关事宜达成本协议。</p>
+            <p>为明确双方权利义务，规范双方业务行为，申请龙井银行个人网上银行的客户（以下简称“甲方”）、龙井银行股份有限公司（含所属各分支机构，以下简称“乙方”），本着自愿、平等、互惠、互利的愿则，就个人网上银行服务的相关事宜达成本协议。</p>
+            <p>为明确双方权利义务，规范双方业务行为，申请龙井银行个人网上银行的客户（以下简称“甲方”）、龙井银行股份有限公司（含所属各分支机构，以下简称“乙方”），本着自愿、平等、互惠、互利的愿则，就个人网上银行服务的相关事宜达成本协议。</p>
+        </div>
+    </div>
+    <div class="okBtn colorMain" href="javascript:void(0)" onclick="hideLight()">确定</div>
+</div>
+<!--//协议end-->
+
+
+<!--修改支付密码-->
+<div id="editPasswordLight" onclick="hidePay()"></div>
+<div class="editPassword" id="editPassword">
+    <div class="passwordItem">
+        <div class="title"><i id="arrowLeft" style="display:none" class="arrowLeft"></i>修改支付密码</div>
+        <div class="text" id="text">请输入原支付密码</div>
+        <ul class="keyBox clearfix">
+            <li id="num0"></li>
+            <li id="num1"></li>
+            <li id="num2"></li>
+            <li id="num3"></li>
+            <li id="num4"></li>
+            <li id="num5"></li>
+        </ul>
+        <input type="hidden" id="paypassword">
+        <input type="hidden" id="newpaypassword">
+        <input type="hidden" id="newpaypassword2">
+    </div>
+    <!--键盘-->
+    <ul class="keyBoard clearfix" id="keyBoard">
+        <li><span>1</span></li>
+        <li><span>2</span></li>
+        <li><span>3</span></li>
+        <li><span>4</span></li>
+        <li><span>5</span></li>
+        <li><span>6</span></li>
+        <li><span>7</span></li>
+        <li><span>8</span></li>
+        <li><span>9</span></li>
+        <li class="none"><span>&nbsp;</span></li>
+        <li><span>0</span></li>
+        <li id="delete" class="none"><span>删除</span></li>
+    </ul>
+    <!--键盘end-->
+</div>
+<!--修改支付密码end-->
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/iscroll.js"></script>
+
+<!--日期选择start-->
+<script type="text/javascript" src="js/mobiscroll.zepto.js"></script>
+<script type="text/javascript" src="js/mobiscroll.core.js"></script>
+<script type="text/javascript" src="js/mobiscroll.scroller.js"></script>
+<script type="text/javascript" src="js/mobiscroll.datetime.js"></script>
+<script type="text/javascript" src="js/mobiscroll.select.js"></script>
+<script type="text/javascript" src="js/mobiscroll.scroller.ios.js"></script>
+<script type="text/javascript" src="js/mobiscroll.scroller.android.js"></script>
+<script type="text/javascript" src="js/mobiscroll.scroller.android-ics.js"></script>
+<script type="text/javascript" src="js/mobiscroll.scroller.wp.js"></script>
+<script type="text/javascript" src="js/mobiscroll.i18n.zh.js"></script>
+<!--日期选择end-->
+
+<script src="js/LAreaData1.js"></script>
+<!--城市选择-->
+<script src="js/LAreaData2.js"></script>
+<!--城市选择-->
+<script src="js/LArea.min.js"></script>
+<!--城市选择-->
+
+<script>
+    //console.log(document.getElementsByClassName("info")[0])
+    //console.log(navigator.userAgent)
+    $(document).ready(function() {
+        btnFixedBottom();
+        
+        //showAgreementBox('registerAgreement');
+        //$("#shoujiinfo").html(navigator.userAgent)
+        //showTipBox("测试测试测试测试测试测试测试测试")
+        //openid
+    })
+    /*****时间****/
+    var curDate = new Date();
+    var startDate = curDate.setDate((new Date()).getDate());
+    var endDate = curDate.setDate((new Date()).getDate() + 90);
+    $('#beginTime,#endTime').scroller('destroy').scroller({
+        preset: 'date',
+        invalid: {
+            daysOfWeek: [],
+            daysOfMonth: []
+        },
+        theme: 'android-ics light',
+        mode: 'scroller',
+        dateFormat: 'yyyy-mm-dd',
+        lang: 'zh',
+        showNow: true,
+        display: 'bottom',
+        animate: 'slideup',
+        minDate: new Date(startDate),
+        maxDate: new Date(endDate)
+    });
+    /*****时间end****/
+
+    /*******地区*******/
+    var city = new LArea();
+    city.init({
+        'trigger': '#city',
+        'keys': {
+            id: 'value',
+            name: 'text'
+        },
+        'type': 2,
+        'data': [provs_data, citys_data, dists_data]
+    });
+
+    $("#city").on("input", function() {
+        console.log($(this).val())
+    })
+    /*******地区end*******/
+
+
+    /*填手机号验证码颜色变化*/
+    $("#telphone").bind('input propertychange', function() {
+        $("#telphone").val().replace(/\s+/g, "")
+        isMobile($("#telphone").val()) ? $(".yzm").removeClass("colorGray") : $(".yzm").addClass("colorGray")
+    })
+
+
+    var sendCode = function(string) {
+        $("#yzm").val("")
+        if (isMobile($("#telphone").val())) {
+            $("#yzm").attr("disabled", false)
+            runbanktime(string);
+        } else {
+            showTipBox("手机号格式输入错误")
+        }
+    }
+    var next = function() {
+        if ($("#referralCode").val() == "") {
+            showTipBox("请输入推荐人代码！");
+        } else if (!isMobile($("#telphone").val())) {
+            showTipBox("请输入正确的手机号！");
+        } else if ($("#yzm").val() == "") {
+            showTipBox("请输入验证码！");
+        } else {
+            //window.location.href = "register2.html";
+            showPay()
+        }
+        //showPay()
+    }
+
+    //这一天天的
+
+    //显示支付密码
+    function showPay() {
+        $(".keyBox li").removeClass("done");
+        $("#text").text("请输入原支付密码");
+        $("#arrowLeft").css("display", "none");
+        $("#paypassword").val("");
+        $("#newpaypassword").val("");
+        $("#newpaypassword2").val("");
+        $("#editPasswordLight").show();
+        $("#editPassword").show();
+        $(".editPassword .keyBoard").addClass('animated slideUp');
+        $('body').on('touchmove', function(event) {
+            event.preventDefault();
+        });
+    }
+
+    function hidePay() {
+        $("#editPasswordLight").hide();
+        $("#editPassword").hide();
+        $('body').unbind("touchmove");
+    }
+
+    //0-9按键
+    $("#keyBoard li:not(.none)").bind("click", function() {
+        if ($("#paypassword").val().length < 6) {
+            $("#num" + $("#paypassword").val().length).addClass("done");
+            $("#paypassword").val($("#paypassword").val() + $(this).text());
+            if ($("#paypassword").val().length == 6) {
+                //console.log("原支付密码为："+$("#paypassword").val());
+                if ($("#paypassword").val() != "666666") {
+                    showLoadding();
+                    $(".editPassword .keyBoard").removeClass('slideUp');
+                    $(".editPassword .keyBoard").addClass('slideDown');
+                    setTimeout(function() {
+                        hideLoadding();
+                        showTipBox("支付密码错误，请重新输入")
+                    }, 1500)
+                    setTimeout(function() {
+                        $(".keyBox li").removeClass("done");
+                        $(".editPassword .keyBoard").removeClass('slideDown');
+                        $(".editPassword .keyBoard").addClass('animated slideUp');
+                        $("#paypassword").val("")
+                    }, 2500)
+                } else {
+                    setTimeout(function() {
+                        $("#text").text("请设置新支付密码")
+                        $(".keyBox li").removeClass("done");
+                    }, 1000)
+                }
+            }
+        } else if ($("#paypassword").val().length == 6 && $("#newpaypassword").val().length < 6) {
+            $("#num" + $("#newpaypassword").val().length).addClass("done");
+            $("#newpaypassword").val($("#newpaypassword").val() + $(this).text());
+            if ($("#newpaypassword").val().length == 6) {
+                //console.log("新支付密码为："+$("#newpaypassword").val());
+                setTimeout(function() {
+                    $("#text").text("请再次输入")
+                    $(".keyBox li").removeClass("done");
+                    $("#arrowLeft").css("display", "block")
+                }, 1000)
+
+            }
+        } else {
+            $("#num" + $("#newpaypassword2").val().length).addClass("done");
+            $("#newpaypassword2").val($("#newpaypassword2").val() + $(this).text());
+            if ($("#newpaypassword2").val().length == 6) {
+                //console.log("再次输入新支付密码为："+$("#newpaypassword2").val());
+                if ($("#newpaypassword2").val() != $("#newpaypassword").val()) {
+                    setTimeout(function() {
+                        $("#text").text("两次密码不一致请重新输入")
+                        $(".keyBox li").removeClass("done");
+                        $("#newpaypassword2").val("")
+                    }, 1000)
+
+                } else {
+                    showLoadding();
+                    setTimeout(function() {
+                        hideLoadding();
+                        hidePay();
+                        showTipBox("支付密码修改成功")
+                    }, 1000)
+                }
+            }
+        }
+    })
+
+    //删除
+
+    $("#delete").bind("click", function() {
+        if ($("#paypassword").val().length > 0 && $("#newpaypassword").val().length == 0 && $("#newpaypassword2").val().length == 0) {
+            $("#num" + ($("#paypassword").val().length - 1)).removeClass("done");
+            $("#paypassword").val($("#paypassword").val().substr(0, $("#paypassword").val().length - 1));
+        }
+        if ($("#paypassword").val().length == 6 && $("#newpaypassword").val().length > 0 && $("#newpaypassword2").val().length == 0) {
+            $("#num" + ($("#newpaypassword").val().length - 1)).removeClass("done");
+            $("#newpaypassword").val($("#newpaypassword").val().substr(0, $("#newpaypassword").val().length - 1));
+        }
+        else {
+            $("#num" + ($("#newpaypassword2").val().length - 1)).removeClass("done");
+            $("#newpaypassword2").val($("#newpaypassword2").val().substr(0, $("#newpaypassword2").val().length - 1));
+        }
+    })
+
+    $("#arrowLeft").click(function() {
+        $(this).css("display", "none")
+        $("#text").text("请设置新支付密码")
+        for (var i = 0; i < 6; i++) {
+            $("#num" + i).removeClass("done")
+        }
+        $("#newpaypassword").val("")
+    })
+</script>
+</body>
+
+</html>

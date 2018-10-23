@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+<link type="text/css" rel="stylesheet" href="css/swiper.min.css">
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<style>
+body{background-color:#fff}
+.imgList{width:100%;padding:.1rem 0 .1rem .1rem;background-color:#f5f5f5;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:box;display:-moz-box;display:-webkit-box;}
+.imgList .item{height:1.75rem;margin-right:.1rem;overflow:hidden;background-repeat:no-repeat;background-size:cover;box-flex:1; -moz-box-flex:1; -webkit-box-flex:1;}
+.imgList .item img{width:100%;height:100%;}
+
+.previewImg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:#000000;z-index:100;}
+.previewImg .item{width:100%;min-height:100%;display:flex;align-items:center;justify-content:center;overflow: auto}
+.previewImg .promotion-pagination {position: absolute;bottom:0.1rem;width:100%;text-align:center;z-index: 20;}
+.previewImg .promotion-pagination .swiper-pagination-bullet {width:6px; height:6px; margin:0 0.05rem;background-color:#fff;border-radius:100%; opacity:1;}
+.previewImg .promotion-pagination .swiper-pagination-bullet-active {background-color:#d22d31;}
+
+.navTitle{position:relative;width:4.5rem;height:1rem;margin:0 auto;text-align:center;line-height:1rem;color:#ffbf05}
+.navTitle:before{content: '';position: absolute;top:50%;left:0;width:1.46rem;height:.04rem;margin-top:-.02rem;
+background: -webkit-linear-gradient(left, #ffffff , #ffbc01); /* Safari 5.1 - 6.0 */
+background: -o-linear-gradient(right,#ffffff , #ffbc01); /* Opera 11.1 - 12.0 */
+background: -moz-linear-gradient(right,#ffffff , #ffbc01); /* Firefox 3.6 - 15 */
+background: linear-gradient(to right,#ffffff , #ffbc01); /* 标准的语法 */
+}
+.navTitle:after{content: '';position: absolute;top:50%;right:0;width:1.46rem;height:.04rem;margin-top:-.02rem;
+background: -webkit-linear-gradient(left, #ffbc01 , #ffffff); /* Safari 5.1 - 6.0 */
+background: -o-linear-gradient(right,#ffbc01 , #ffffff); /* Opera 11.1 - 12.0 */
+background: -moz-linear-gradient(right,#ffbc01 , #ffffff); /* Firefox 3.6 - 15 */
+background: linear-gradient(to right,#ffbc01 , #ffffff); /* 标准的语法 */
+}
+
+
+.borderItem {position:relative;width:4rem;height:4rem;margin:.4rem auto;font-size:.24rem;color:#ff0000;text-align: center;line-height: .46rem; }
+.borderItem::before {content: '';position: absolute;top:0;left:0;width: 200%;height: 200%;border: 1px solid #f00;transform: scale(0.5, 0.5);transform-origin: 0 0;box-sizing: border-box;}
+
+.lineItem{margin:.4rem}
+.label-parent {
+    display:inline-block;
+    width:2.6rem;
+    height:.92rem;
+    font-size:.48rem;
+    color:#ff0000;
+    text-align: center;
+    line-height: .92rem;
+    border: 1px solid #f00;
+    border-radius:.92rem;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+.label-parent label{
+    display: table-cell;
+    width:120px;
+    vertical-align:middle;
+}
+
+.num{display:inline-block;height:.8rem;min-width:.4rem;padding:0 .2rem;font-size:.56rem;text-align:center;line-height:.8rem;color:#fff; background-color:#f00;border-radius:.8rem;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+.con{padding:.3rem .1rem;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:box;display:-moz-box;display:-webkit-box;}
+.con label{display:block;font-size:.30rem;}
+.con .info{padding-left:.1rem;font-size:.26rem;box-flex:1; -moz-box-flex:1; -webkit-box-flex:1;}
+</style>
+
+</head>
+
+<body ontouchstart>
+
+<div class="con">
+    <label>订单:</label>
+    <div class="info">订单内容订单内容订单内容订单内容订单内容订单内容订单内容订单内容订单内容订单内容订单内容订单内容</div>
+</div>
+
+<div class="navTitle"><span>拼团须知</span></div>
+
+
+<div class="lineItem">
+    <div class="num">51</div>
+</div>
+
+<div class="lineItem">
+    <div class="label-parent">去店铺</div>
+</div>
+
+<div class="borderItem"></div>
+
+<div class="imgList">
+    <div class="item" da style="background-image:url(http://api.qujie365.com/upload/abbreviationsImg/20180814161731297872.jpg)"></div>
+    <div class="item" style="background-image:url(http://api.qujie365.com/upload/abbreviationsImg/20180814161805213331.jpg)"></div>
+    <div class="item" style="background-image:url(http://api.qujie365.com/upload/abbreviationsImg/20180814161747989901.jpg)"></div>
+    <div class="item" style="background-image:url(http://api.qujie365.com/upload/abbreviationsImg/20180814162001902536.jpg)"></div>
+</div>
+<!--//container end-->
+
+<div class='swiper-container previewImg'>
+    <div class='swiper-wrapper'>
+        <div class='swiper-slide item' dat>
+            <img src="http://api.qujie365.com/upload/20180814161731297872.jpg">
+        </div>
+        <div class='swiper-slide item'>
+            <img src="http://api.qujie365.com/upload/20180814161805213331.jpg">
+        </div>
+        <div class='swiper-slide item'>
+            <img src="http://api.qujie365.com/upload/20180814161747989901.jpg">
+        </div>
+        <div class='swiper-slide item'>
+            <img src="http://api.qujie365.com/upload/20180814162001902536.jpg">
+        </div>
+    </div>
+    <div class='promotion-pagination'></div>
+</div>
+
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script>
+
+$(document).ready(function(){
+    $(".imgList .item").css("height",$(".imgList .item").width())
+    /*
+    $(".borderItem").html(Date.parse(new Date())/1000)
+    setInterval(function(){
+        $(".borderItem").html(Date.parse(new Date())/1000)
+    },1000)
+    */
+    //什么样的情况什么样的问题
+})
+var previewImg = new Swiper('.previewImg', {
+    //initialSlide:index,
+    pagination: '.promotion-pagination',
+    paginationType :'bullets',
+    loop: false,
+    //autoplay:3000,
+    grabCursor: true, 
+    //paginationClickable: true,
+    autoplayDisableOnInteraction:false,
+    onSlideChangeEnd:function(swiper){
+        console.log(swiper.activeIndex)
+        document.title = (swiper.activeIndex+1)+'/4'
+    }
+});
+$(".imgList .item").click(function(){
+    var index=$(this).index();
+    document.title = (index+1)+'/4'
+    $(".previewImg").show();
+    previewImg.update()
+    previewImg.slideTo(index,0,false)
+})
+$(".previewImg img").click(function(){
+    $(".previewImg").hide()
+    document.title=""
+})
+//应用编辑自动保存word文档有没有自动保存功能啊 小程序可不能
+//那就自动保存吧 还省事呢
+//
+</script>
+</body>
+</html>

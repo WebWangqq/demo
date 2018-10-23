@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>demo</title>
+<link type="text/css" rel="stylesheet" href="css/swiper.min.css">
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<link type="text/css" rel="stylesheet" href="css/demo2.css">
+<style type="text/css">
+.searchCon{position:fixed;top:0;left:0;width:100%;padding:10px;background-color:#ffffff;z-index:1000;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:box;display:-moz-box;display:-webkit-box;}
+.searchCon:after{content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;background-color:#efeff4;
+-webkit-transform: scaleY(0.5);
+-moz-transform: scaleY(0.5);
+-ms-transform: scaleY(0.5);
+-o-transform: scaleY(0.5);
+transform: scaleY(0.5);}
+
+.searchCon .info{height:40px;line-height:40px;background-color:#e6e6e6;border-radius:3px; -moz-box-flex:1; -webkit-box-flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.searchCon .info .field{display:block;width:100%;height:100%;text-indent:10px;}
+.searchCon .btn{display:block;height:40px;margin-left:20px;padding:0 20px;color:#ffffff;line-height:40px;background-color:#cea76e;border-radius:3px;}
+.content{margin-top:70px;}
+.list li{padding:.2rem .3rem;margin-bottom:10px;background-color:#fff;}
+.list a:last-child li{margin-bottom:0;}
+.list li .name{padding-bottom:.1rem;}
+.list li .ico{position:relative;padding-left:.4rem;color:#8e8e8e;font-size:.26rem;line-height:.4rem;}
+.list li .ico:before{content:'';position:absolute;top:.05rem;left:0;width:.3rem;height:.3rem;background:url(images/branchIco1.png) no-repeat;background-size:.3rem .3rem;}
+.list li .ico.address:before{background-image:url(images/branchIco2.png)}
+.list li .ico.tel{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:box;display:-moz-box;display:-webkit-box;}
+.list li .tel label{display:block;box-flex:1; -moz-box-flex:1; -webkit-box-flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.list li .tel span{display:block;margin-left:10px}
+.nohave{display:none;position:relative;width:4rem;height:1rem;text-align:center;line-height:1rem;color:#cccccc;margin:0 auto;}
+.nohave:after{content:'';position:absolute;top:50%;left:0;width:100%;height:1px;background-color:#cccccc;z-index:1;
+-webkit-transform: scaleY(0.5);
+-moz-transform: scaleY(0.5);
+-ms-transform: scaleY(0.5);
+-o-transform: scaleY(0.5);
+transform: scaleY(0.5);}
+.nohave span{position:relative;display:inline-block;padding:0 .2rem;background-color:#efeff4;z-index:2}
+</style>
+</head>
+
+<body ontouchstart>
+<form class="searchCon" action="" target="nm_iframe" method="post" onsubmit="return search()">
+	<div class="info"><input id="searchText" class="field" type="search" placeholder="请输入搜索内容" /></div>
+	<input class="btn" type="button" onclick="search()" value="搜索" />
+	<input type="submit" name="" hidden="">
+</form>
+<iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
+<div class="map" id="allmap"></div>
+<div class="content">
+	<ul class="list">
+		<!-- <a href=''>
+			<li>
+				<div class="name">1.吉林龙井农村商业银行阳光分理处</div>
+				<div class="ico tel"><label>(0433)2354809</label><span>8.5Km</span></div>
+				<div class="ico address">天津市东丽区空港汽车园中路1号</div>
+			</li>
+		</a>
+		<a href=''>
+			<li>
+				<div class="name">1.吉林龙井农村商业银行阳光分理处</div>
+				<div class="ico tel"><label>(0433)2354809</label><span>8.5Km</span></div>
+				<div class="ico address">天津市东丽区空港汽车园中路1号</div>
+			</li>
+		</a> -->
+	</ul>
+	<div class="nohave"><span>我是有底线的</span></div>
+</div>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8MVRhBVC91vlarz99blLYfG2"></script>
+
+<script>
+// 百度地图API功能
+var map = new BMap.Map("allmap");
+map.enableScrollWheelZoom(true); //是否开启滚轮的缩放功能
+var geolocation = new BMap.Geolocation();
+var geocoder=new BMap.Geocoder();
+var searchtext
+var mylng,mylat
+var ls=new BMap.LocalSearch(map);
+var pageSize,totalpage,pageindex
+
+function onSearchComplete(res){
+	hideLoadding()
+	
+	pageSize=res.getCurrentNumPois()
+	totalpage=res.getNumPages()
+	pageindex=res.getPageIndex()
+	console.log(totalpage)
+	var html=""
+	if(pageindex==totalpage-1){
+		$(".nohave").show();
+	}
+	else{
+		$(".nohave").hide();
+	}
+	for(var i=0;i<pageSize;i++){
+		var item=res.getPoi(i)
+
+		item.juli = formatDistance(GetDistance(item.point.lat,item.point.lng,mylat,mylng));
+		
+		html+="<a href='"+item.detailUrl+"'><li>"
+			+"<div class='name'>"+item.title+"</div>"
+			+"<div class='ico tel'><label>"+item.phoneNumber+"</label><span>"+item.juli+"</span></div>"
+			+"<div class='ico address'>"+item.address+"</div></li></a>"
+	}
+	
+	$(".list").append(html);
+}
+ls.setSearchCompleteCallback(onSearchComplete)
+ls.setPageCapacity(20)
+
+var proact=0;
+$(".content").bind("touchmove",function(){
+	var t = document.documentElement.scrollTop || document.body.scrollTop;
+    if (t > proact) {
+    	if($(window).scrollTop()>=$('body').height()-$(window).height()){
+			if (pageindex < totalpage - 1){
+				showLoadding()
+				ls.gotoPage(pageindex + 1);
+				if(pageindex==totalpage-2){
+					$(".nohave").show()
+				}
+				else{
+					$(".nohave").hide()
+				}
+			} 
+		}
+		proact = t;
+	}
+	
+})
+
+function search(){
+	pageindex=0
+	$(".list").html("")
+	$("#searchText").blur();
+	searchtext=$("#searchText").val()
+	showLoadding();
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			//alert("要获取您的位置")
+			var pt=r.point
+			mylng=r.point.lng
+			mylat=r.point.lat
+			map.centerAndZoom(pt,10);
+
+			ls.search(searchtext)
+			
+		}
+		else {
+			alert('failed'+this.getStatus());
+		}
+	},{enableHighAccuracy: true})
+}
+
+/*
+
+*/
+</script>
+</body>
+</html>
