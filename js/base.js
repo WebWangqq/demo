@@ -140,6 +140,24 @@ function isMobile(cla) {
     return flag
 }
 
+/*校验用户名*/
+function isusername(cla){
+    return (cla.search(/^\w{6,20}$/)>-1)
+}
+
+function isPassword(cla){
+    if (cla.search(/^\w{6,12}$/)>-1) {
+        //(/^[A-Z]+$|^[a-z]+$|^[\d]+$|^[_]+$/g).test(cla) 必须包含大写字母、小写字母、数字、下划线的最少两种，6-12个字符
+        if ((/^[A-Z]+$|^[a-z]+$|^[\d]/).test(cla)) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        return false;
+    }
+}
+
 function formatNumber(n) {
     n = n.toString()
     return n[1] ? n : '0' + n
