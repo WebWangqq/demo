@@ -31,6 +31,7 @@ function draw(ajaxData){
 			name: ajaxData[i].name,
 			type: 'line',
 			smooth: true,//是否平滑曲线
+			
 			itemStyle:{
 				normal:{
 					color:ajaxData[i].color
@@ -44,7 +45,15 @@ function draw(ajaxData){
 			//areaStyle 区域填充样式
 			/*areaStyle:{
 				normal:{
-					color:ajaxData[i].color
+					color:new echarts.graphic.LinearGradient(
+	                    0, 0, 0, 1,
+	                    [
+	                        {offset: 0, color: '#83bff6'},
+	                        {offset: 0.5, color: '#188df0'},
+	                        {offset: 1, color: '#1170ce'}
+	                    ]
+	                )
+	                color:ajaxData[i].color
 				}
 			},*/
 			data:ajaxData[i].data
@@ -73,10 +82,11 @@ function draw(ajaxData){
 			data:legendData
 		},
 		grid:{
-			// show:true,
-			// borderColor:'#f00',
-			// backgroundColor:'#f7941d',
-			containLabel:true
+			left: 20,
+            right: 20,
+            bottom: 40,
+            top: 40,
+            containLabel: true
 		},
 		xAxis: {
 			show:true,
@@ -117,7 +127,7 @@ function draw(ajaxData){
 				color:'#f00',
 				fontSize:'14',
 			},
-			nameGap:40,
+			nameGap:30,
 			type: 'value',
 			/*min: 0,
 	        max: 1500,
