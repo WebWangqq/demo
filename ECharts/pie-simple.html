@@ -32,11 +32,13 @@ var ajaxData=[
 ]
 var okData=[]
 var colors=[]
+var legendData=[]
 for(var i=0;i<ajaxData.length;i++){
     if(ajaxData[i].value>0){
         var aa={value:ajaxData[i].value,name:ajaxData[i].name}
         okData.push(aa)
         colors.push(ajaxData[i].color)
+        legendData.push(ajaxData[i].name)
     }
 }
 
@@ -57,32 +59,36 @@ option = {
     },
     /*legend: {
         orient: 'vertical',
-        left: 'left',
-        data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+        left:'left',
+        itemGap:10,
+        itemWidth:10,
+        itemHeight:10,
+        data: legendData
     },*/
     series: [{
         type: 'pie',
         name: '访问来源',
         legendHoverLink:false,
         hoverAnimation:false,
-        radius: ['15%', '40%'],
+        radius: ['20%', '60%'],
         center: ['50%', '50%'],
         avoidLabelOverlap: false,
         label:{
             normal:{
                 show:true,
                 position:'outside',
-                formatter:'{b}:{c}',
+                formatter:'{b}\n{c}',
                 fontSize:'12',
                 align:'center',
-                verticalAlign:'bottom'
+                verticalAlign:'bottom',
+                //color:''
             }
         },
         labelLine:{
             normal:{
                 show:true,
-                /*length:10,
-                length2:40*/
+                length:10,
+                length2:40
             }
         },
         data:okData,
