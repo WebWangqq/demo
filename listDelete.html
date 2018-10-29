@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html style="font-size:50px;">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>网点查询</title>
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<style type="text/css">
+.messageCon {
+	margin-top: .3rem;
+}
+
+.messageCon .item {
+	position: relative;
+	margin-bottom: .2rem;
+}
+
+.messageCon .item .itemText {
+	position: relative;
+	height: 48px;
+	padding: 10px;
+	line-height: 24px;
+	font-size: 14px;
+	background-color: #fff;
+	z-index: 2;
+}
+
+.messageCon .item .itemText .con {
+	height: 48px;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.messageCon .item .itemDelete {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: flex;
+	align-items: center;
+	width: 14px;
+	padding: 0 20px;
+	height: 68px;
+	background-color: #f00;
+	z-index: 1
+}
+
+.messageCon .item .itemDelete text {
+	font-size: 14px;
+	color: #fff;
+}
+</style>
+</head>
+
+<body ontouchstart>
+<div class="messageCon">
+	<div class="item">
+		<div class="itemText">
+			<div class="con">1之前一直以为微信小程序按钮点击事件传参是和web端相同，即在事件中写明所传递的参数即可，但是这样尝试过以后发现小程序的控制台报错</div>
+		</div>
+		<div class="itemDelete"><text>删除</text></div>
+	</div>
+	<div class="item">
+		<div class="itemText">
+			<div class="con">2之前一直以为微信小程序按钮点击事件传参是和web端相同，即在事件中写明所传递的参数即可，但是这样尝试过以后发现小程序的控制台报错</div>
+		</div>
+		<div class="itemDelete"><text>删除</text></div>
+	</div>
+	<div class="item">
+		<div class="itemText">
+			<div class="con">3之前一直以为微信小程序按钮点击事件传参是和web端相同，即在事件中写明所传递的参数即可，但是这样尝试过以后发现小程序的控制台报错</div>
+		</div>
+		<div class="itemDelete"><text>删除</text></div>
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript">
+function prevent_default(e) {
+	e.preventDefault();
+}
+
+function disable_scroll() {
+	$(document).on('touchmove', prevent_default);
+}
+
+function enable_scroll() {
+	$(document).unbind('touchmove', prevent_default)
+}
+var startX,moveX,endX;
+var delBtnWidth=54
+$('.messageCon .itemText').on('touchstart', function(e) {
+	//$(e.currentTarget).addClass('open')
+	//console.log(e)
+	startX = e.originalEvent.targetTouches[0].pageX // anchor point
+	//console.log(startX)
+	$(e.currentTarget).parents(".item").siblings().children('.itemText').animate({ left: 0 }, 200)
+}).on('touchmove', function(e) {
+
+	/*var change = e.originalEvent.targetTouches[0].pageX - startX
+	change = Math.min(Math.max(-100, change), 0)
+	e.currentTarget.style.left = change + 'px'
+	if (change < -10) disable_scroll()*/
+
+	moveX=e.originalEvent.targetTouches[0].pageX;
+	var change=startX-moveX;
+	if(change<=0) change=0
+	if(change>=delBtnWidth) change=delBtnWidth
+	e.currentTarget.style.left = -change + 'px'
+	
+}).on('touchend', function(e) {
+	//console.log(e.originalEvent.changedTouches[0].pageX)
+	endX=e.originalEvent.changedTouches[0].pageX
+	var endchange=startX-endX
+	if(endchange<delBtnWidth/2) endchange=0
+	else endchange=delBtnWidth
+	/*var left = -parseInt(e.currentTarget.style.left)
+	var new_left
+	console.log(left)
+
+	if(left>delBtnWidth/2) new_left=delBtnWidth
+	if( left<delBtnWidth/2) new_left=0*/
+	$(e.currentTarget).animate({left: -endchange+'px'}, 200)
+    enable_scroll()
+});
+
+$('.item .itemDelete').on('touchend', function(e) {
+	/*删除成功*/
+	e.preventDefault();
+	$(this).parents('.item').slideUp('fast', function() {
+		$(this).remove();
+		showTipBox("删除成功！");
+	})
+	/*删除成功end*/
+	//showLight('lightBox2');
+})
+</script>
+</body>
+
+</html>
