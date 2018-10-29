@@ -35,15 +35,20 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        click:{
-            mode:'index'
+        layout: {
+            padding: {
+                left: 10,
+                right: 0,
+                top: 10,
+                bottom: 10
+            }
         },
         elements: {
             line: {
                 tension: 0.4 //平滑曲线
             },
             point:{
-                radius:3,
+                radius:5,
                 pointStyle:'circle'
             }
         },

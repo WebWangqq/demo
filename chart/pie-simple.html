@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<div id="container" style="width:100%;height:300px;margin:0 auto;padding-bottom:20px;background:#ffffff">
+<div id="container" style="width:100%;height:300px;margin:0 auto;background:#ffffff">
     <canvas id="myChart" style="width:100%;height:100%;"></canvas>
 </div>
 <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
@@ -34,7 +34,15 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        responsive: true
+        responsive: true,
+        layout: {
+            padding: {
+                left: 10,
+                right: 0,
+                top: 10,
+                bottom: 20
+            }
+        },
     },
 
 });
