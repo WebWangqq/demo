@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+<link type="text/css" rel="stylesheet" href="../css/layout.css">
+</head>
+
+<body>
+<div id="container" style="width:100%;height:300px;margin:0 auto;background:#ffffff">
+    <canvas id="myChart" style="width:100%;height:100%;"></canvas>
+</div>
+<script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/Chart.min.js"></script>
+<script type="text/javascript">
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["1月", "2月", "3月", "4月", "5月", "6月"],
+        datasets: [{
+            label: '系列1',
+            data: [100, 30, 50, 60,40,80],
+            backgroundColor:'#1170ce',
+            // borderColor:'#f00',
+            // borderWidth: 1
+        },{
+            label: '系列2',
+            data: [45, 60, 13, 25,30,50,55],
+            backgroundColor:'#6da30f',
+            // borderColor:'#f00',
+            // borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 100
+                }
+            }]
+        }
+    },
+
+});
+</script>
+</body>
+
+</html>
