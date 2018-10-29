@@ -43,19 +43,19 @@ function draw(ajaxData){
 				}
 			},
 			//areaStyle 区域填充样式
-			/*areaStyle:{
+			areaStyle:{
 				normal:{
-					color:new echarts.graphic.LinearGradient(
+					/*color:new echarts.graphic.LinearGradient(
 	                    0, 0, 0, 1,
 	                    [
 	                        {offset: 0, color: '#83bff6'},
 	                        {offset: 0.5, color: '#188df0'},
 	                        {offset: 1, color: '#1170ce'}
 	                    ]
-	                )
+	                )*/
 	                color:ajaxData[i].color
 				}
-			},*/
+			},
 			data:ajaxData[i].data
 		}
 	    seriesVal.push(aa)

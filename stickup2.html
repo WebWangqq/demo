@@ -189,7 +189,12 @@ $(".showSub").click(function(){
 		$(this).addClass("showSub2").next().addClass("show");
 		$(this).find(".arrow").addClass("show");
 		$("#overlay").show();
-		$("html, body").scrollTop($(".banner").height());
+		var docScroll=$(document).scrollTop()
+		var headerH=$("#header").height()
+		if(docScroll<headerH){
+			$("html, body").scrollTop($(".banner").height());
+		}
+		
 		$('body').on('touchmove', function(event) { event.preventDefault(); });
 	}
 	
@@ -201,12 +206,15 @@ $(".subFilter li").click(function(){
 	$(this).parent().removeClass("show");
 	$(this).parents(".filterItem").find("em").text($(this).text());
 	$("#overlay").hide();
+	$('body').unbind("touchmove");
+	$("html, body").scrollTop($(".banner").height());
 })
 $("#overlay").click(function(){
 	$(this).hide();
 	$(".showSub").removeClass("showSub2");
 	$(".arrow").removeClass("show");
 	$(".subFilter").removeClass("show");
+	$('body').unbind("touchmove");
 })
 </script>
 </body>
