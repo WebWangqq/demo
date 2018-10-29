@@ -98,17 +98,10 @@ var startX,moveX,endX;
 var delBtnWidth=54
 $('.messageCon .itemText').on('touchstart', function(e) {
 	//$(e.currentTarget).addClass('open')
-	//console.log(e)
+	console.log(e)
 	startX = e.originalEvent.targetTouches[0].pageX // anchor point
-	//console.log(startX)
 	$(e.currentTarget).parents(".item").siblings().children('.itemText').animate({ left: 0 }, 200)
 }).on('touchmove', function(e) {
-
-	/*var change = e.originalEvent.targetTouches[0].pageX - startX
-	change = Math.min(Math.max(-100, change), 0)
-	e.currentTarget.style.left = change + 'px'
-	if (change < -10) disable_scroll()*/
-
 	moveX=e.originalEvent.targetTouches[0].pageX;
 	var change=startX-moveX;
 	if(change<=0) change=0
@@ -116,17 +109,10 @@ $('.messageCon .itemText').on('touchstart', function(e) {
 	e.currentTarget.style.left = -change + 'px'
 	
 }).on('touchend', function(e) {
-	//console.log(e.originalEvent.changedTouches[0].pageX)
 	endX=e.originalEvent.changedTouches[0].pageX
 	var endchange=startX-endX
 	if(endchange<delBtnWidth/2) endchange=0
 	else endchange=delBtnWidth
-	/*var left = -parseInt(e.currentTarget.style.left)
-	var new_left
-	console.log(left)
-
-	if(left>delBtnWidth/2) new_left=delBtnWidth
-	if( left<delBtnWidth/2) new_left=0*/
 	$(e.currentTarget).animate({left: -endchange+'px'}, 200)
     enable_scroll()
 });
