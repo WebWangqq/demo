@@ -98,7 +98,7 @@ var startX,moveX,endX;
 var delBtnWidth=54
 $('.messageCon .itemText').on('touchstart', function(e) {
 	//$(e.currentTarget).addClass('open')
-	console.log(e)
+	//console.log(e)
 	startX = e.originalEvent.targetTouches[0].pageX // anchor point
 	$(e.currentTarget).parents(".item").siblings().children('.itemText').animate({ left: 0 }, 200)
 }).on('touchmove', function(e) {
