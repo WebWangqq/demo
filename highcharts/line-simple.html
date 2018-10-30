@@ -58,15 +58,33 @@ var chart = Highcharts.chart('myLine', {
     },
     plotOptions: {
         series: {
-            label: {
-                connectorAllowed: false
+            lineWidth:1,
+            
+            marker:{
+                radius:2,
             },
-            pointStart: 2010
-        }
+            events: {
+                legendItemClick: function(e) {
+                    return false; // 直接 return false 即可禁用图例点击事件
+                }
+            }
+        },
+
     },
     series: [{
         name: '安装，实施人员',
-        data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+        color:'#f8e399',
+        data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175],
+        marker:{
+            fillColor:'#f00'
+        }
+    }, {
+        name: '工人',
+        color:'#a0dca0',
+        data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434],
+         marker:{
+            fillColor:'#00f'
+        }
     }],
     responsive: {
         rules: [{

@@ -56,6 +56,7 @@ var chart = Highcharts.chart('myBar',{
         }
     },
     legend:{
+        //enabled:false,
         verticalAlign : 'top'
     },
     tooltip: {
@@ -69,7 +70,14 @@ var chart = Highcharts.chart('myBar',{
     },
     plotOptions: {
         column: {
-            borderWidth: 0
+            borderWidth:0
+        },
+        series: {
+            events: {
+                legendItemClick: function(e) {
+                    return false; // 直接 return false 即可禁用图例点击事件
+                }
+            }
         }
     },
     series: [{
