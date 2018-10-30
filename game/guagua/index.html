@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html style="font-size: 40px;">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>手机端刮奖效果</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="layoutmode" content="standard">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="renderer" content="webkit">
+<meta name="wap-font-scale" content="no">
+<meta content="telephone=no" name="format-detection">
+<meta http-equiv="Pragma" content="no-cache">
+<script type="text/javascript">
+//html root的字体计算应该放在最前面，这样计算就不会有误差了/
+//2016.3.23 wjq update 之所以要加个判断返回一个20.5，是因为当用户在谷歌等浏览器直接输入手机端网站网址时，如果用户设置模块自定义样式的高度比较小，由于这时候的clientWidth为1920px，及返回的_htmlFontSize为40，这时候就会使模块太小，展示不完全，因此先取一个较为准确的值去展示。Mobi.resetHtmlFontSize()顺便也加了
+var _htmlFontSize = (function() {
+    var clientWidth = document.documentElement ? document.documentElement.clientWidth : document.body.clientWidth;
+    if (clientWidth > 640) clientWidth = 640;
+    document.documentElement.style.fontSize = clientWidth * 1 / 16 + "px";
+    return clientWidth * 1 / 16;
+})();
+</script>
+    <link rel="stylesheet" type="text/css" href="base.min.css" />
+</head>
+
+<body class="main_box" style="background-color: #1A1A1A">
+<div class="box">
+    <div class="bg_in">
+        <div class="title">•&nbsp;刮奖区&nbsp;•</div>
+    </div>
+    <div class="content">
+        <div id="mask_img_bg"><img src="images/mask_img_bg1.jpg" /></div>
+            <img id="redux" src="images/mask-img.jpg" />
+        </div>
+    </div>
+    <div class="show">
+        <img class="show_bg" src="images/ok.png">
+        <img class="show_bg1" src="images/ok1.png">
+        <img class="show_food" src="images/mask_img_bg1.jpg" />
+        <a class="close"></a>
+        <a class="btn"></a>
+    </div>
+    <div class="mask"></div>
+</div>
+<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="jquery.eraser.js"></script>
+<script>
+$(window).load(function() { //这个适用手机端，等图片加载完再显示，因为有可能会出现第一次加载图片没有加载完就不会出现canvas
+    $('#redux').eraser({
+        size: 20, //设置橡皮擦大小
+        completeRatio: .6, //设置擦除面积比例
+        completeFunction: showResetButton //大于擦除面积比例触发函数
+    });
+
+    function showResetButton() {
+        $(".main_box .show,.main_box .mask").fadeIn(300)
+    }
+    $(".main_box .mask,.main_box .show .close,.main_box .show .btn").click(function() {
+        $(".main_box .show,.main_box .mask").fadeOut(300)
+    })
+})
+</script>
+</body>
+
+</html>
