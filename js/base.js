@@ -35,7 +35,7 @@ function showTipBox(message, callback) {
     setTimeout(function() { 
     	$("#tipBox").fadeOut(300);
         $('body').unbind("touchmove"); 
-    }, 1000);
+    }, 2000);
     if (typeof callback === "function") {
         callback();
     }
