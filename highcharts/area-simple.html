@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+<link type="text/css" rel="stylesheet" href="../css/layout.css">
+</head>
+
+<body>
+<div id="myArea" style="width:100%;height:300px;">
+</div>
+<script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/highcharts/highcharts.js"></script>
+<!-- <script type="text/javascript" src="../js/highcharts/modules/exporting.js"></script>
+<script type="text/javascript" src="../js/highcharts/modules/oldie.js"></script> --> 
+
+<script type="text/javascript">
+var chart = null;
+$.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
+    chart = Highcharts.chart('myArea', {
+        chart: {
+            zoomType: 'x'
+        },
+        title: {
+            text: '美元兑欧元汇率走势图'
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+            '鼠标拖动可以进行缩放' : '手势操作进行缩放'
+        },
+        exporting: { enabled: false },//隐藏导出图片
+        credits:{
+            enabled:true, //false 隐藏highcharts的站点标志
+            href:'https://webwangqq.github.io/demo/index.html',
+            text:"webwangqq demo"
+        },
+        xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: {
+                millisecond: '%H:%M:%S.%L',
+                second: '%H:%M:%S',
+                minute: '%H:%M',
+                hour: '%H:%M',
+                day: '%m-%d',
+                week: '%m-%d',
+                month: '%Y-%m',
+                year: '%Y'
+            },
+            lineColor:'#dcdcdc',
+        	lineWidth:1,
+
+        	// gridLineColor:'#f00',
+        	// gridLineWidth:1
+        },
+        tooltip: {
+            dateTimeLabelFormats: {
+                millisecond: '%H:%M:%S.%L',
+                second: '%H:%M:%S',
+                minute: '%H:%M',
+                hour: '%H:%M',
+                day: '%Y-%m-%d',
+                week: '%m-%d',
+                month: '%Y-%m',
+                year: '%Y'
+            }
+        },
+        yAxis: {
+        	lineColor:'#dcdcdc',
+        	lineWidth:1,
+            // min:0.5,
+            // max:1.5,
+            title: {
+            	reserveSpace:false,//是否留白
+                text: ''//Y轴名称
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+						[0, '#f59210'],
+						[1, '#ffffff']
+					]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                lineColor:'#dc7d00',
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            }            
+        },
+        series: [{
+            type: 'area',
+            name: '美元兑欧元',
+            data: data,
+        }]
+    });
+});	
+</script>
+</body>
+
+</html>

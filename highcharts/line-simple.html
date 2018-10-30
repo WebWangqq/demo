@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+<link type="text/css" rel="stylesheet" href="../css/layout.css">
+</head>
+
+<body>
+<div id="myLine" style="height:300px;">
+</div>
+<script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="../js/highcharts/highcharts-zh_CN.js"></script>
+<!-- <script type="text/javascript" src="../js/highcharts/modules/exporting.js"></script>
+<script type="text/javascript" src="../js/highcharts/modules/oldie.js"></script> -->
+<script type="text/javascript">
+var chart = Highcharts.chart('myLine', {
+    title: {
+        text: '2010 ~ 2016 年就业人员发展情况'
+    },
+    /*subtitle: {
+        text: '数据来源：thesolarfoundation.com'
+    },*/
+    credits:{
+        enabled:true, //false 隐藏highcharts的站点标志
+        href:'https://webwangqq.github.io/demo/index.html',
+        text:"webwangqq demo"
+    },
+    xAxis: {
+        categories: [
+            '2010','2011','2012','2013','2014','2015','2016','2017'
+        ],
+        crosshair: true,
+        lineColor:'#dcdcdc',
+        lineWidth:1,
+    },
+    yAxis: {
+        title: {
+            reserveSpace:false,//是否留白
+            text: ''//人数
+        },
+        lineColor:'#dcdcdc',
+        lineWidth:1,
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'center',
+        verticalAlign: 'bottom'
+    },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2010
+        }
+    },
+    series: [{
+        name: '安装，实施人员',
+        data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+    }],
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+});
+</script>
+</body>
+
+</html>

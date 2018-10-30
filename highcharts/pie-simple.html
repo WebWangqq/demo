@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+<link type="text/css" rel="stylesheet" href="../css/layout.css">
+<style type="text/css">
+.pintCon{padding:10px;color:#fff;font-size:14px;}
+</style>
+</head>
+
+<body>
+<div id="myPie" style="width:100%;height:300px;">
+</div>
+<script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/highcharts/highcharts.js"></script>
+<!-- <script type="text/javascript" src="../js/highcharts/modules/exporting.js"></script> -->
+<script type="text/javascript">
+var chart = Highcharts.chart('myPie',{
+    chart: {
+        type: 'pie',
+        spacing : [20, 0 , 20, 0],
+    },
+    credits:{
+        enabled:true, //false 隐藏highcharts的站点标志
+        href:'https://webwangqq.github.io/demo/index.html',
+        text:"webwangqq demo"
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        backgroundColor:'rgba(0,0,0,.7)',
+        borderRadius:5,
+        borderWidth:0,
+        padding:0,
+        headerFormat:'',
+        pointFormat: '<div class="pintCon">{point.name}：{point.y}元</div>',
+        footerFormat: '',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions:{
+        pie:{
+            allowPointSelect:false,
+            dataLabels:{
+                format:'<p style="color:{point.color};font-size:12px">{point.name}</p><br/><p style="color:{point.color};font-size:12px">{point.y}</p>'
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        innerSize:'30%',//环形图设置
+        //colorByPoint: true,
+        data: [{
+            name: '我的余额',
+            y: 300,
+            color:'#f8e399'
+        }, {
+            name: '活期钱包',
+            y: 310,
+            color:'#f78db3'
+        }, {
+            name: '智能钱包',
+            y: 234,
+            color:'#a0dca0'
+        }, {
+            name: '短期理财',
+            y: 123,
+            color:'#7996d2'
+        }, {
+            name: '中长期理财',
+            y: 134,
+            color:'#90d4e7'
+        }]
+    }]
+});
+</script>
+</body>
+
+</html>
