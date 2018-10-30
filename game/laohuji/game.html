@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>老虎机</title>
+<link type="text/css" rel="stylesheet" href="../../css/layout.css">
+<link type="text/css" rel="stylesheet" href="game.css">
+</head>
+
+<body>
+<div id="container">
+	<img class="logo" src="images/logo.png" />
+	<img class="topimg" src="images/topImg1.jpg" />
+	<div class="gameCon">
+		<div class="awardCon clearfix">
+			<div class="award"></div>
+			<div class="award"></div>
+			<div class="award"></div>
+		</div>
+		<a id="awardBtn" href="javascript:void(0)">立即抽奖</a>
+	</div>
+	<div class="yxsm">游戏说明</div>
+	<div class="yxsmCon">
+		<p><span>1</span>此活动专供天津银行实习生福利抽取；</p>
+		<p><span>2</span>点击抽奖按钮，进行福利抽取，请准确填写您的手机号，保证奖品投放；</p>
+		<p><span>3</span>获奖用户可点击【我的奖品】查看获奖信息；</p>
+		<p><span>4</span>本活动最终解释权归天津银行所有。</p>
+		<a class="myAward">我的奖品</a>
+		<p>本活动由搜惠宝提供技术支持，客服电话<a href="tel:400-066-9095">400-066-9095</a></p>
+	</div>
+</div>
+<!--container end-->
+<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="../../js/base.js"></script>
+<script type="text/javascript" src="easing.js"></script>
+<script>
+function numRand() {
+	var num1 = Math.round(Math.random() * 2 + 1);
+	var num2 = Math.round(Math.random() * 2 + 1);
+	var num3 = Math.round(Math.random() * 2 + 1);
+	//var num1=num2=num3=2
+	var rand = parseInt(num1 * 100 + num2 * 10 + num3);
+	return rand;
+}
+
+var isBegin = false;
+
+$(function() {
+	var u = 1.9 * $(window).width() / 7.5;
+	var count = 2; //摇奖次数
+	$('#awardBtn').click(function() {
+		if (isBegin) return false;
+		isBegin = true;
+		if (count > 0) {
+			$(".award").css('backgroundPositionY', 0);
+			var result = numRand();
+			//console.log(result);
+			var num_arr = (result + '').split('');
+			$(".award").each(function(index) {
+				var _num = $(this);
+				setTimeout(function() {
+					_num.animate({
+						backgroundPositionY: (u * 60) - (u * num_arr[index])
+					}, {
+						duration: 6000 + index * 3000,
+						easing: "easeInOutCirc",
+						complete: function() {
+							if (index == 2) {
+								isBegin = false;
+								count--;
+								//奖品显示
+								if (result == "111" || result == "222" || result == "333") {
+									showTipBox('中奖了');
+								} else {
+									showTipBox('没有中奖');
+								}
+							}
+						}
+
+					});
+
+				}, index * 300);
+			});
+		} else {
+			showTipBox('对不起，您已用完抽奖机会！')
+		}
+
+	});
+
+});
+</script>
+</body>
+
+</html>
