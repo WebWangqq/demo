@@ -57,9 +57,13 @@ a{
 	text-decoration: none;
 }
 .md_selectarea{
-	display: inline-block;
-	width: 50%;
+	float:left;
+	width: 2rem;
+	margin-left:.4rem;
 	position: relative;
+}
+.md_selectarea:nth-child(2){
+	margin-left:1.5rem;
 }
 .md_head{
 	height: 1.4rem;
@@ -77,20 +81,33 @@ a{
 	color: #fff;
 }
 .md_prev, .md_next{
+	position:absolute;
+	top:0;
+	width:1rem;
+	height:100%;
+	text-indent:-9999px;
+	overflow:hidden;
+}
+.md_prev{left:-.5rem;}
+.md_next{right:-.5rem;}
+.md_prev:after, .md_next:after{
+	content:'';
 	position: absolute;
-	top: 0;
-	font-family: arial;
-	font-size: 1.6em;
-	display: inline-block;
-	width: 40px;
-	height: 40px;
-	text-align: center;
+	top:50%;
+	left:50%;
+	width:0; 
+    height:0;
+    
+    border-top:0.16rem solid transparent;
+    border-bottom:0.16rem solid transparent; 
+    transform: translate(-50%,-50%);
 }
-.md_prev{
-	left: 0;
+.md_prev:after{
+	border-right:0.16rem solid #ffffff; 
 }
-.md_next{
-	right: 0;
+.md_next:after{
+
+	border-left:0.16rem solid #ffffff; 
 }
 .md_weekarea{
 	margin: 0;

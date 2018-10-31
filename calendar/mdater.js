@@ -57,7 +57,7 @@
 				this.initListeners();
 			},
 			renderHTML : function(){
-				var $html = $('<div class="md_mask" onclick=""></div><div class="md_panel"><div class="md_head"><div class="md_selectarea"><a class="md_prev change_year" href="javascript:void(0);">&lt;</a> <a class="md_headtext yeartag" href="javascript:void(0);"></a> <a class="md_next change_year" href="javascript:void(0);">&gt;</a></div><div class="md_selectarea"><a class="md_prev change_month" href="javascript:void(0);">&lt;</a> <a class="md_headtext monthtag" href="javascript:void(0);">月</a> <a class="md_next change_month" href="javascript:void(0);">&gt;</a></div></div><div class="md_body"><ul class="md_weekarea"><li>日</li><li>一</li><li>二</li><li>三</li><li>四</li><li>五</li><li>六</li></ul><ul class="md_datearea in"></ul></div><div class="md_foot"><a href="javascript:void(0);" class="md_ok">确定</a> <a href="javascript:void(0);" class="md_cancel">取消</a></div></div>');
+				var $html = $('<div class="md_mask" onclick=""></div><div class="md_panel"><div class="md_head clearfix"><div class="md_selectarea"><a class="md_prev change_year" href="javascript:void(0);">&lt;</a> <a class="md_headtext yeartag" href="javascript:void(0);">年</a><a class="md_next change_year" href="javascript:void(0);">&gt;</a></div><div class="md_selectarea"><a class="md_prev change_month" href="javascript:void(0);">&lt;</a> <a class="md_headtext monthtag" href="javascript:void(0);">月</a> <a class="md_next change_month" href="javascript:void(0);">&gt;</a></div></div><div class="md_body"><ul class="md_weekarea"><li>日</li><li>一</li><li>二</li><li>三</li><li>四</li><li>五</li><li>六</li></ul><ul class="md_datearea in"></ul></div><div class="md_foot"><a href="javascript:void(0);" class="md_ok">确定</a> <a href="javascript:void(0);" class="md_cancel">取消</a></div></div>');
 
 				$(document.body).append($html);
 			},
@@ -229,7 +229,7 @@
 				var y = this.value.year = date.getFullYear(),
 					m = this.value.month = date.getMonth(),
 					d = this.value.date = date.getDate();
-				$('.yeartag').text(y).data('year', y);
+				$('.yeartag').text(y+'年').data('year', y);
 				$('.monthtag').text(F.getMonth(m)+'月').data('month', m);
 				var dayStr = this.getDateStr(y, m, d);
 				$('.md_datearea').html(dayStr);
