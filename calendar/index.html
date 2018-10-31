@@ -1,0 +1,61 @@
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+<title>日历选择</title>
+<link type="text/css" rel="stylesheet" href="../css/layout.css">
+<link type="text/css" rel="stylesheet" href="mdater.css">
+</head>
+<body>
+<ul class="formInfo">
+	<li>
+		<label>开始时间</label>
+		<div class="info">
+			<input id="beginTime" class="field" type="text" placeholder="开始时间" readonly onfocus="this.blur()" />
+		</div>
+	</li>
+	<li>
+		<label>结束时间</label>
+		<div class="info">
+			<input id="endTime" class="field" type="text" placeholder="结束时间" readonly onfocus="this.blur()" />
+		</div>
+	</li>
+
+</ul>
+<div id="btnMainCon"><a class="btnMain" onclick="next()">下一步</a></div>
+
+<script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+
+<!-- <script type="text/javascript" src="zepto.js"></script> -->
+
+ <script type="text/javascript" src="../js/base.js"></script>
+<script src="mdater.js"></script>
+<script>
+var myDate=new Date();
+var myYear=myDate.getFullYear()
+var myMonth=myDate.getMonth()
+var myday=myDate.getDate()
+var mdater={}
+$('#beginTime').mdater({
+	minDate : new Date(2015, 2, 1),
+	maxDate : new Date(myYear,myMonth,myday)
+});
+
+$('#endTime').mdater({
+	minDate : new Date(2015, 2, 1),
+	maxDate : new Date(myYear,myMonth,myday)
+});
+function next () {
+	console.log("开始时间"+$("#beginTime").val())
+	console.log("结束时间"+$("#endTime").val())
+}
+</script>
+</body>
+</html>

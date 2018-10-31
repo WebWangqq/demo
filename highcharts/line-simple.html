@@ -24,12 +24,13 @@
 <script type="text/javascript" src="../js/highcharts/modules/oldie.js"></script> -->
 <script type="text/javascript">
 var chart = Highcharts.chart('myLine', {
+    chart: {
+        type: 'line',
+        spacing : [10, 10 , 10, 10],
+    },
     title: {
         text: '2010 ~ 2016 年就业人员发展情况'
     },
-    /*subtitle: {
-        text: '数据来源：thesolarfoundation.com'
-    },*/
     credits:{
         enabled:true, //false 隐藏highcharts的站点标志
         href:'https://webwangqq.github.io/demo/index.html',
@@ -52,14 +53,13 @@ var chart = Highcharts.chart('myLine', {
         lineWidth:1,
     },
     legend: {
-        layout: 'vertical',
+        //layout: 'vertical',
         align: 'center',
         verticalAlign: 'bottom'
     },
     plotOptions: {
         series: {
             lineWidth:1,
-            
             marker:{
                 radius:2,
             },
@@ -72,7 +72,7 @@ var chart = Highcharts.chart('myLine', {
 
     },
     series: [{
-        name: '安装，实施人员',
+        name: '安装',
         color:'#f8e399',
         data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175],
         marker:{
@@ -86,20 +86,7 @@ var chart = Highcharts.chart('myLine', {
             fillColor:'#00f'
         }
     }],
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
+    
 });
 </script>
 </body>
