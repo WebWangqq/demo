@@ -3,9 +3,11 @@ $('body').append("<div id='overlay' onclick='hideLight()'></div><div id='tipBox'
 /*比例缩放*/
 function resize() {
     var wWidth = document.body.clientWidth;
-    var Fsize = wWidth / 7.5 < 100 ? wWidth / 7.5 : 100;
+    var wHeight=document.body.clientHeight
+    var Fsize = wWidth / 7.5 < 50 ? wWidth / 7.5 : 50;
     document.querySelector('html').style.fontSize = Fsize + 'px';
-
+    var wap=document.getElementById('wrap')
+    if(wap) document.getElementById('wrap').style.height = wHeight+'px';
 };
 window.onload = function() {
     resize();
@@ -15,11 +17,13 @@ window.onresize = resize;
 
 //加载中
 function showLoadding() {
+    $('body').on('touchmove', function(event) { event.preventDefault(); });
     $("#loadBox").show();
 }
 
 function hideLoadding() {
     $("#loadBox").hide();
+    $('body').unbind("touchmove"); 
 }
 //加载中end
 

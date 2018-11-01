@@ -17,14 +17,12 @@ a {text-decoration: none;}
 ul,ol {list-style:none;}
 .box {height:50px;position:relative;width:100%;margin:0 auto;}
 .wrap{min-width: 320px;max-width:768px;margin:0 auto;overflow:hidden;position:relative;}
-.wrapper {position:relative;height:49px;line-height:50px;width:100%;overflow: hidden;margin:0 auto;border:1px solid #ccc;border-radius:25px;}
-.wrapper .scroller {position:absolute;padding:0 48% 0 50%;}
-.wrapper .scroller li {float: left;width:50px;height:13px;line-height:13px;text-align: center;font-style: none;margin: 0 20px; padding:30px 0 10px;position:relative;}
-/*	.wrapper .scroller li:first-child {width:230px;}
-.wrapper .scroller li:last-child {width:210px;}*/
-.wrapper .scroller li span{display:block;border-left:1px solid #ccc;/*border-right:1px solid #ccc;*/width:100%;height:100%;}
-.wrapper .scroller li span i {display:inline-block;font-size:12px; font-style:normal;position:absolute;top:7px;left:-10px;}
-.pillar {display:inline-block;width:6px;height:100%;border-radius:10px;background:red;position:absolute;z-index:2;left:50%;margin-left:-3px;}
+.wrapper {position:relative;height:50px;line-height:50px;width:100%;overflow: hidden;margin:0 auto;border-bottom:1px solid #ccc;border-top:0;}
+.wrapper .scroller {position:absolute;padding-left:50px;}
+.wrapper .scroller li {float: left;width:50px;height:50px;line-height:20px;text-align: center;font-style: none;position:relative;}
+.wrapper .scroller li span{display:block;width:100%;height:100%;background:url(img.png) no-repeat;}
+.wrapper .scroller li span i {display:inline-block;font-size:12px; font-style:normal;position:absolute;top:0;left:-10px;}
+.pillar {position:absolute;left:50px;display:inline-block;width:2px;height:100%;border-radius:10px;background:red;z-index:2;}
 h3{text-align: center;line-height: 60px}
 </style>
 
@@ -36,18 +34,18 @@ h3{text-align: center;line-height: 60px}
 	<span class="pillar"></span>
 	<div class="wrapper" id="wrapper1">
 		<div class="scroller">
-			<ul class="clearfix">
-				<li><span><i>不限</i></span></li>
-				<li><span><i>100</i></span></li>
-				<li><span><i>200</i></span></li>
-				<li><span><i>300</i></span></li>
-				<li><span><i>400</i></span></li>
-				<li><span><i>500</i></span></li>
-				<li><span><i>600</i></span></li>
-				<li><span><i>700</i></span></li>
-				<li><span><i>800</i></span></li>
-				<li><span><i>900</i></span></li>
-				<li><span><i>1000</i></span></li>
+			<ul class="clearfix myday">
+				<li><span><i>1</i></span></li>
+				<li><span><i>6</i></span></li>
+				<li><span><i>11</i></span></li>
+				<li><span><i>16</i></span></li>
+				<li><span><i>21</i></span></li>
+				<li><span><i>26</i></span></li>
+				<li><span><i>31</i></span></li>
+				<li><span><i>36</i></span></li>
+				<li><span><i>41</i></span></li>
+				<li><span><i>46</i></span></li>
+				<li><span><i>51</i></span></li>
 			</ul>
 		</div>
 	</div>
@@ -60,6 +58,11 @@ h3{text-align: center;line-height: 60px}
 <script type="text/javascript" src="navbarscroll.js"></script>
 <script>
 $(function(){
+var html=''
+for(var i=0;i<100;i++){
+	html+='<li><span><i>'+(1+i*5)+'</i></span></li>'
+}
+$('.myday').html(html)
 	//demo示例一到四 通过lass调取，一句可以搞定，用于页面中可能有多个导航的情况
 	// $('.wrapper').navbarscroll();
 
@@ -73,8 +76,9 @@ $(function(){
 	
 	//demo示例六 通过id调取
 	$('.wrapper').navbarscroll({
+		//defaultSelect:6,
 		duibiScreenWidth:0, //单位以rem为准，默认为0.4rem
-        scrollerWidth:1, //单位以px为准，默认为3,[仅用于特殊情况：外层宽度因为小数点造成的不精准情况]
+        scrollerWidth:10, //单位以px为准，默认为3,[仅用于特殊情况：外层宽度因为小数点造成的不精准情况]
         fingerClick:0, //目标第0或1个选项触发,必须每一项长度一致，方可用此项
 		endClickScroll:function(obj){
 			// console.log(obj.text())

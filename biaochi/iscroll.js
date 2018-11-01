@@ -912,18 +912,18 @@ IScroll.prototype = {
 			// 2018.6.22修改
 			var _tid = document.getElementById('numberID');
 			// var _xin =this.maxScrollX;
-			var _xin =parseInt(((this.maxScrollX)/5)/10)*10;
-			var _x = parseInt((x)/5);
+			var _xin =parseInt(((this.maxScrollX)/10)/10)*6;
+			var _x = parseInt((x)/10);
 			// console.log(_x)
 			// console.log(_xin)
 			// console.log(parseInt((x)/5))
 			if(_x <= 0){
 				if(_x == 0){
-					_tid.innerHTML='不限';
-				}else if(_x >=_xin){
-					_tid.innerHTML=(-parseInt(x/5))*10+'万';
-				}else {
-					_tid.innerHTML=1000+'万以上';
+					_tid.innerHTML='第1天';
+				}/*else if(_x >=_xin){
+					_tid.innerHTML=(-parseInt(x/10)+1)+'万';
+				}*/else {
+					_tid.innerHTML='第'+(-parseInt(x/10)+1)+'天';
 				}
 			}
 			// console.log(this.maxScrollX)
