@@ -35,9 +35,13 @@ transform: scaleY(0.5);
 }
 
 /*navBar*/
-#navBar{position:fixed;top:0;left:0;width:100%;height:.8rem;line-height:.8rem;text-align:center;font-size:0.34rem;color:#6c6c6c;background-color:#fff;z-index:9899;}
-#navBar p{width:80%;height:.8rem;margin:0 auto;color:#282828;font-weight:bold;}
-#navBar .goBack{position:absolute;top:0;left:0;width:0.7rem;height:.8rem;background:url(../images/navBarArrowleft.png) center no-repeat;background-size:0.4rem 0.4rem;text-indent:-9999px;overflow:hidden;}
+#navBar{position:fixed;top:0;left:0;width:100%;height:45px;display:flex;align-items:center;justify-content:center;background-color:#fff;z-index:9899;}
+#navBar .title{color:#282828;font-size:18px;font-weight:bold;}
+#navBar .goBack{position:absolute;top:0;left:0;width:45px;height:100%;text-indent:-9999px;overflow:hidden;}
+#navBar .goBack:after{content:'';position:absolute;top:50%;left:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border:1px solid #aaa;border-right:none;border-bottom:none;
+transform: rotate(-45deg);
+
+}
 #navBar:after{content:'';position: absolute;left:0;bottom:0;width:100%;height:1px;background-color:#dcdcdc;
 -webkit-transform: scaleY(0.5);
 -moz-transform: scaleY(0.5);
@@ -47,7 +51,7 @@ transform: scaleY(0.5);
 }
 
 
-.formInfo{margin-bottom:15px;background-color:#fff;}
+.formInfo{margin-bottom:10px;background-color:#fff;}
 .formInfo:last-child{margin-bottom:none;}
 .formInfo li{position:relative;height:.9rem;line-height:.9rem;margin-left:15px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:box;display:-moz-box;display:-webkit-box;}
 .formInfo li:after{content:'';position: absolute;left:0;bottom:0;width:100%;height:1px;background-color:#dcdcdc;
@@ -136,9 +140,11 @@ transform: scaleY(0.5);
 .textRight{text-align:right;}
 .textUnder{text-decoration:underline;}
 
-.arrowLeft,.arrowRight{position:absolute;top:50%;display:block;width:.4rem;height:.4rem;margin-top:-.2rem;background:url(../images/arrowRight.png) no-repeat;background-size:.4rem .4rem;}
-.arrowLeft{left:.1rem;transform: rotate(180deg);}
-.arrowRight{right:.2rem;}
+.arrowLeft,.arrowRight{position:absolute;top:50%;display:block;width:10px;height:10px;margin-top:-5px;border:2px solid #aaa;border-top:none;border-right:0;
+transform: rotate(225deg);
+}
+.arrowLeft{left:10px;transform: rotate(45deg);}
+.arrowRight{right:20px;}
 
 
 /*noData*/
