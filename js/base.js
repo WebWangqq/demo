@@ -98,9 +98,9 @@ function btnGray() {
 /*表单按钮位置*/
 function btnFixedBottom() {
     var wWidth = document.body.clientWidth;
-    var Fsize = wWidth / 7.5 < 50 ? wWidth / 7.5 : 50;
-    var mt = $(window).height() - $(".formWrap").height() - Fsize * 1 - 50;
-    var paddingTop = (mt > 0) ? mt - 50 : 50;
+    var mt = $(window).height() - $(".formWrap").height() - 90;
+    console.log(mt)
+    var paddingTop = (mt > 50) ? mt : 50;
     $("#btnMainCon").css({ "padding-top": paddingTop, "padding-bottom": "50px" });
 }
 /*表单按钮位置end*/

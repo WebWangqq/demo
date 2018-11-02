@@ -52,7 +52,7 @@ transform: scaleY(0.5);
 
 
 .formInfo{margin-bottom:10px;background-color:#fff;}
-.formInfo:last-child{margin-bottom:none;}
+.formInfo:last-child{margin-bottom:0;}
 .formInfo li{position:relative;height:.9rem;line-height:.9rem;margin-left:15px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:box;display:-moz-box;display:-webkit-box;}
 .formInfo li:after{content:'';position: absolute;left:0;bottom:0;width:100%;height:1px;background-color:#dcdcdc;
 -webkit-transform: scaleY(0.5);
@@ -68,6 +68,7 @@ transform: scaleY(0.5);
 .formInfo li label{display:block;min-width:1.6rem;padding-right:.1rem;font-weight:400}
 .formInfo li .info{position:relative;height:100%;box-flex:1; -moz-box-flex:1; -webkit-box-flex:1;}
 .formInfo li .info .field{display:block;width:100%;height:100%;}
+.formInfo li .info .myselect{position:absolute;top:0;left:0;display:block;width:100%;height:100%;opacity:0;}
 .formInfo li .info .bankLogo{display:inline-block;width:.4rem;height:.4rem;margin-right:.15rem;}
 .formInfo li .yzm{position:relative;display:block;width:1.8rem;text-align:center;}
 .formInfo li .yzm:before{position:absolute;top:50%;left:0;content:'';;width:1px;height:.6rem;margin-top:-.3rem;background-color: #dcdcdc;
@@ -127,11 +128,10 @@ transform: scaleY(0.5);
 .agreement i.noagree{background-position:-.1rem -.6rem;}
 
 
-.btnMain{display:block;height:.8rem;margin:1rem .45rem 0;text-align:center;line-height:.8rem;font-size:.34rem;color:#fff;border-radius:.8rem;background-color:#cea76e;}
+.btnMain{display:block;height:40px;margin:0 20px;display:flex;align-items:center;justify-content:center; font-size:18px;color:#fff;border-radius:20px;background-color:#cea76e;}
 .btnMain:active{background-color:#edb460;}
 .btnGray{background-color:#dddddd;color:#fff;}
 .btnGray:active{background-color:#dddddd;}
-.btnAddCard{display:block;height:.8rem;margin:0 .45rem;text-align:center;line-height:.8rem;color:#cea76e;font-size:.36rem;border:1px dashed #999999;border-radius:.8rem;}
 
 .colorMain{color:#cea76e;}/*红色文字*/
 .colorBlue{color:#477aac;}/*蓝色文字*/
