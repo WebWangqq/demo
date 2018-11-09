@@ -27,22 +27,17 @@
 			<input id="endTime" class="field" type="text" placeholder="结束时间" readonly onfocus="this.blur()" />
 		</div>
 	</li>
-
 </ul>
 <div id="btnMainCon"><a class="btnMain" onclick="next()">下一步</a></div>
 
 <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
-
-<!-- <script type="text/javascript" src="zepto.js"></script> -->
-
- <script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
 <script src="mdater.js"></script>
 <script>
 var myDate=new Date();
 var myYear=myDate.getFullYear()
 var myMonth=myDate.getMonth()
 var myday=myDate.getDate()
-var mdater={}
 $('#beginTime').mdater({
 	minDate : new Date(2015, 2, 1),
 	maxDate : new Date(myYear,myMonth,myday)
