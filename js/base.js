@@ -7,7 +7,7 @@ function resize() {
     var Fsize = wWidth / 7.5 < 50 ? wWidth / 7.5 : 50;
     document.querySelector('html').style.fontSize = Fsize + 'px';
     var wap=document.getElementById('wrap')
-    if(wap) document.getElementById('wrap').style.height = wHeight+'px';
+    if(wap) document.getElementById('wrap').style.minHeight = wHeight+'px';
 };
 window.onload = function() {
     resize();
