@@ -12,7 +12,6 @@
 <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
 <title>注册</title>
 <link type="text/css" rel="stylesheet" href="css/layout.css">
-<link type="text/css" rel="stylesheet" href="css/keyBoard.css">
 <!--//选择时间start-->
 <link rel="stylesheet" type="text/css" href="css/mobiscroll.scroller.css" />
 <link rel="stylesheet" type="text/css" href="css/mobiscroll.scroller.android-ics.css" />
@@ -126,42 +125,6 @@
 <!--//协议end-->
 
 
-<!--修改支付密码-->
-<div id="editPasswordLight" onclick="hidePay()"></div>
-<div class="editPassword" id="editPassword">
-	<div class="passwordItem">
-		<div class="title"><i id="arrowLeft" style="display:none" class="arrowLeft"></i>修改支付密码</div>
-		<div class="text" id="text">请输入原支付密码</div>
-		<ul class="keyBox clearfix">
-			<li id="num0"></li>
-			<li id="num1"></li>
-			<li id="num2"></li>
-			<li id="num3"></li>
-			<li id="num4"></li>
-			<li id="num5"></li>
-		</ul>
-		<input type="hidden" id="paypassword">
-		<input type="hidden" id="newpaypassword">
-		<input type="hidden" id="newpaypassword2">
-	</div>
-	<!--键盘-->
-	<ul class="keyBoard clearfix" id="keyBoard">
-		<li><span>1</span></li>
-		<li><span>2</span></li>
-		<li><span>3</span></li>
-		<li><span>4</span></li>
-		<li><span>5</span></li>
-		<li><span>6</span></li>
-		<li><span>7</span></li>
-		<li><span>8</span></li>
-		<li><span>9</span></li>
-		<li class="none"><span>&nbsp;</span></li>
-		<li><span>0</span></li>
-		<li id="delete" class="none"><span>删除</span></li>
-	</ul>
-	<!--键盘end-->
-</div>
-<!--修改支付密码end-->
 
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
@@ -272,125 +235,12 @@ var next = function() {
 	} else if ($("#yzm").val() == "") {
 		showTipBox("请输入验证码！");
 	} else {
-		//window.location.href = "register2.html";
-		showPay()
+		window.location.href = "index.html";
 	}
 	//showPay()
 }
 
-//这一天天的
 
-//显示支付密码
-function showPay() {
-	$(".keyBox li").removeClass("done");
-	$("#text").text("请输入原支付密码");
-	$("#arrowLeft").css("display", "none");
-	$("#paypassword").val("");
-	$("#newpaypassword").val("");
-	$("#newpaypassword2").val("");
-	$("#editPasswordLight").show();
-	$("#editPassword").show();
-	$(".editPassword .keyBoard").addClass('animated slideUp');
-	$('body').on('touchmove', function(event) {
-		event.preventDefault();
-	});
-}
-
-function hidePay() {
-	$("#editPasswordLight").hide();
-	$("#editPassword").hide();
-	$('body').unbind("touchmove");
-}
-
-//0-9按键
-$("#keyBoard li:not(.none)").bind("click", function() {
-	if ($("#paypassword").val().length < 6) {
-		$("#num" + $("#paypassword").val().length).addClass("done");
-		$("#paypassword").val($("#paypassword").val() + $(this).text());
-		if ($("#paypassword").val().length == 6) {
-			//console.log("原支付密码为："+$("#paypassword").val());
-			if ($("#paypassword").val() != "666666") {
-				showLoadding();
-				$(".editPassword .keyBoard").removeClass('slideUp');
-				$(".editPassword .keyBoard").addClass('slideDown');
-				setTimeout(function() {
-					hideLoadding();
-					showTipBox("支付密码错误，请重新输入")
-				}, 1500)
-				setTimeout(function() {
-					$(".keyBox li").removeClass("done");
-					$(".editPassword .keyBoard").removeClass('slideDown');
-					$(".editPassword .keyBoard").addClass('animated slideUp');
-					$("#paypassword").val("")
-				}, 2500)
-			} else {
-				setTimeout(function() {
-					$("#text").text("请设置新支付密码")
-					$(".keyBox li").removeClass("done");
-				}, 1000)
-			}
-		}
-	} else if ($("#paypassword").val().length == 6 && $("#newpaypassword").val().length < 6) {
-		$("#num" + $("#newpaypassword").val().length).addClass("done");
-		$("#newpaypassword").val($("#newpaypassword").val() + $(this).text());
-		if ($("#newpaypassword").val().length == 6) {
-			//console.log("新支付密码为："+$("#newpaypassword").val());
-			setTimeout(function() {
-				$("#text").text("请再次输入")
-				$(".keyBox li").removeClass("done");
-				$("#arrowLeft").css("display", "block")
-			}, 1000)
-
-		}
-	} else {
-		$("#num" + $("#newpaypassword2").val().length).addClass("done");
-		$("#newpaypassword2").val($("#newpaypassword2").val() + $(this).text());
-		if ($("#newpaypassword2").val().length == 6) {
-			//console.log("再次输入新支付密码为："+$("#newpaypassword2").val());
-			if ($("#newpaypassword2").val() != $("#newpaypassword").val()) {
-				setTimeout(function() {
-					$("#text").text("两次密码不一致请重新输入")
-					$(".keyBox li").removeClass("done");
-					$("#newpaypassword2").val("")
-				}, 1000)
-
-			} else {
-				showLoadding();
-				setTimeout(function() {
-					hideLoadding();
-					hidePay();
-					showTipBox("支付密码修改成功")
-				}, 1000)
-			}
-		}
-	}
-})
-
-//删除
-
-$("#delete").bind("click", function() {
-	if ($("#paypassword").val().length > 0 && $("#newpaypassword").val().length == 0 && $("#newpaypassword2").val().length == 0) {
-		$("#num" + ($("#paypassword").val().length - 1)).removeClass("done");
-		$("#paypassword").val($("#paypassword").val().substr(0, $("#paypassword").val().length - 1));
-	}
-	if ($("#paypassword").val().length == 6 && $("#newpaypassword").val().length > 0 && $("#newpaypassword2").val().length == 0) {
-		$("#num" + ($("#newpaypassword").val().length - 1)).removeClass("done");
-		$("#newpaypassword").val($("#newpaypassword").val().substr(0, $("#newpaypassword").val().length - 1));
-	}
-	else {
-		$("#num" + ($("#newpaypassword2").val().length - 1)).removeClass("done");
-		$("#newpaypassword2").val($("#newpaypassword2").val().substr(0, $("#newpaypassword2").val().length - 1));
-	}
-})
-
-$("#arrowLeft").click(function() {
-	$(this).css("display", "none")
-	$("#text").text("请设置新支付密码")
-	for (var i = 0; i < 6; i++) {
-		$("#num" + i).removeClass("done")
-	}
-	$("#newpaypassword").val("")
-})
 </script>
 </body>
 
