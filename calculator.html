@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<style type="text/css">
+/*#pageWrap{background-color:#ffffff}*/
+.calculatorBoxOverlay{display:none;position:fixed;top:0;left:0;right:0;max-width:640px;height:100%;margin:0 auto;background-color:rgba(0,0,0,.7);}
+.calculatorBox{display:none;position:fixed;bottom:0;left:0;right:0;max-width:640px;padding:0 20px 20px;margin:0 auto;background-color:#ffffff;box-sizing:border-box;}
+.calculatorBox .title{position:relative;height:50px;line-height:50px;text-align: center;font-size:18px;}
+.calculatorBox .title .close{position:absolute;top:0;left:-15px;width:50px;height:50px;text-align:center;font-size:26px;}
+.calculatorBox .numTextCon{height:40px;padding:0 10px;line-height:40px;background-color:#f0f0f0}
+#numText{font-size:18px;font-weight:500}
+.calculatorBox .inputCon {margin-top:10px;}
+.calculatorBox .inputCon li{float:left;width:33.33%;margin-bottom:3px;box-sizing:border-box;}
+.calculatorBox .inputCon li span{position:relative;display:flex;align-items:center;justify-content: center; width:100%;height:40px;font-size:20px;border:1px solid #ececec;border-radius:3px;}
+.calculatorBox .inputCon li span:active{background-color:#ececec}
+/*.inputCon li span::before {content: '';position: absolute;top:0;left:0;width: 200%;height: 200%;border: 1px solid #ececec;border-radius:6px;transform: scale(0.5, 0.5);transform-origin: 0 0;box-sizing: border-box;}*/
+.calculatorBox .inputCon li:nth-child(3n+2){padding:0 4px;}
+.calculatorBox .inputCon li:nth-child(10){width:66.66%;padding-right:4px;}
+.calculatorBox .inputCon li:nth-child(11){padding:0;}
+.calculatorBox .inputCon .del img{display:block;width:30px;}
+
+</style>
+</head>
+
+<body ontouchstart>
+<div id='pageWrap'>
+<a class="btnMain" style="margin-top:20px;" onclick="showCalculator()">计算器</a>
+</div>
+
+<div class="calculatorBoxOverlay"></div>
+<div class="calculatorBox">
+	<div class="title">
+		<span class="close" onclick="hideCalculator()">×</span>
+		<p>收益计算器</p>
+	</div>
+	<div class="numTextCon clearfix">
+		<label class="left">买入金额</label>
+		<div class="right numCon"><span id='numText'>--</span>元</div>
+	</div>
+	<ul class="inputCon clearfix">
+		<li class="num" data-num='7'><span>7</span></li>
+		<li class="num" data-num='8'><span>8</span></li>
+		<li class="num" data-num='9'><span>9</span></li>
+		<li class="num" data-num='4'><span>4</span></li>
+		<li class="num" data-num='5'><span>5</span></li>
+		<li class="num" data-num='6'><span>6</span></li>
+		<li class="num" data-num='3'><span>3</span></li>
+		<li class="num" data-num='2'><span>2</span></li>
+		<li class="num" data-num='1'><span>1</span></li>
+		<li class="num" data-num='0'><span>0</span></li>
+		<li class="del"><span><img src="images/keyDelete.png"></span></li>
+	</ul>
+</div> 
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript">
+
+function add_comma_toThousands(num) {
+    var num = (num || 0).toString();
+    var result = '';
+    while (num.length > 3) {
+        result = ',' + num.slice(-3) + result;
+        num = num.slice(0, num.length - 3);
+    }
+    if (num) { result = num + result; }
+    return result;
+}
+
+var numText=''
+$('.inputCon .num').click(function() {
+	console.log(numText.length)
+	if(numText=='0' && numText.length==1){
+		numText=$(this).data('num').toString()
+	}
+	else{
+		numText+=$(this).data('num')
+	}
+	$('#numText').text(add_comma_toThousands(numText))
+});
+
+$('.del').click(function() {
+	var numTextLen=numText.length
+	if(numTextLen>=1){
+		numText=numText.substr(0,numTextLen-1)
+		$("#numText").text(add_comma_toThousands(numText))
+	}
+});
+
+function showCalculator(){
+	$('.calculatorBoxOverlay').show();
+	$('.calculatorBox').slideDown();
+	$('body').on('touchmove', function(event) { event.preventDefault(); });
+}
+function hideCalculator(){
+	$(".calculatorBoxOverlay").hide();
+    $(".calculatorBox").hide();
+    $('body').unbind("touchmove");
+}
+</script>
+</body>
+</html>
