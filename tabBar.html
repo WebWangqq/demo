@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>目录</title>
+<link type="text/css" rel="stylesheet" href="css/swiper.min.css">
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<style type="text/css">
+.tabNavBar{position:fixed;top:0;left:0;right:0;display:flex;margin:0 auto;background-color:#ffffff;overflow-x:auto;z-index:100;}
+.tabNavBar li{position: relative;display:block!important;margin:0 10px;text-align: center;line-height:50px;
+-webkit-flex-shrink: 0;
+-ms-flex-negative: 0;
+flex-shrink: 0;
+-webkit-box-sizing: border-box;
+box-sizing: border-box;
+}
+.tabNavBar li.current{color:#6ca6fa;}
+/*.tabNavBar li.current:after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background-color: #6ca6fa;border-radius: 3px;}*/
+/*.tabNavBar li:first-of-type{margin-left:15px;}
+*/.tabNavBar li:last-of-type{margin-right:0}
+.tabNavBar .lastLi{width:15px;
+-webkit-flex-shrink: 0;
+-ms-flex-negative: 0;
+flex-shrink: 0;
+}
+.tabNavBar .indicator{position: absolute;bottom: 0;width: 1px;height: 2px;background-color: #6ca6fa;border-radius: 3px;
+-webkit-transform-origin: 0 0;
+transform-origin: 0 0;
+-webkit-transition: opacity .2s ease-in-out .2s, -webkit-transform .2s ease-in-out;
+transition: opacity .2s ease-in-out .2s, -webkit-transform .2s ease-in-out;
+transition: transform .2s ease-in-out, opacity .2s ease-in-out .2s;
+transition: transform .2s ease-in-out, opacity .2s ease-in-out .2s, -webkit-transform .2s ease-in-out;
+opacity:0;
+}
+.listItem{height:500px;background-color:#ffffff;}
+</style>
+</head>
+
+<body ontouchstart>
+
+<ul class="tabNavBar">
+	<!-- <li class="current">生鲜水果</li>
+	<li>休闲零食</li>
+	<li>酒水乳饮</li>
+	<li>粮油副食</li>
+	<li>个人护理</li>
+	<li>家居厨具</li>
+	<li>家庭清洁</li>
+	<li>母婴玩具</li>
+	<i class="lastLi"></i>
+	<i class="indicator"></i> -->
+</ul>
+<div style="height: 60px;"></div>
+<div class="swiper-container listCon">
+	<div class='swiper-wrapper'>
+        <!-- <div class='swiper-slide listItem'>1</div>
+        <div class='swiper-slide listItem'>2</div>
+        <div class='swiper-slide listItem'>3</div>
+        <div class='swiper-slide listItem'>4</div>
+        <div class='swiper-slide listItem'>5</div> -->
+    </div>
+</div>
+
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript">
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+	var r = window.location.search.substr(1).match(reg); //匹配目标参数
+	if (r != null) return unescape(r[2]); return null; //返回参数值
+}
+var listCon = new Swiper('.listCon', {
+    paginationType :'bullets',
+    loop: false,
+    grabCursor: true, 
+    autoplayDisableOnInteraction:false,
+    onSlideChangeEnd:function(swiper){
+        var index=swiper.activeIndex
+		tabNavBarClick(index)
+    }
+});
+
+var marginNum=20
+var juliFmat=160//左边
+var scrollLeftNum=0
+
+function tabNavBarClick(index){
+	console.log($('.tabNavBar li:eq(4)').width())
+	listCon.update()
+	listCon.slideTo(index,0,false)
+	var currentW=$('.tabNavBar li').eq(index).width()
+	console.log(currentW)
+	$('.tabNavBar li').eq(index).addClass('current').siblings().removeClass('current')
+	var transNum=10
+	for(var i=0;i<index;i++){
+		transNum+=$('.tabNavBar li').eq(i).width()+marginNum
+	}
+
+	var currentjuli=$('.tabNavBar li').eq(index).offset().left;
+
+	if(scrollLeftNum<0) scrollLeftNum=0
+	scrollLeftNum2=scrollLeftNum+currentjuli-juliFmat
+	$('.tabNavBar').animate({scrollLeft:scrollLeftNum2},100)
+	$('.indicator').css({'width':currentW+'px','transform':'translate3d('+transNum+'px, 0px, 0px)','opacity':1})
+}
+
+$('.tabNavBar').on('scroll', function(e) {
+    scrollLeftNum=$(this).scrollLeft()
+})
+
+$(document).ready(function(){
+
+	var id=getQueryString('id');
+	showLoadding();
+	$.ajax({
+		type:'get',
+		url: 'data/tabBar.json',
+		dataType: 'json',
+		async:false,
+		success:function(data){
+			hideLoadding()
+			var html="";
+			var listConHtml='';
+			$.each(data,function(i,item){
+				html+='<li>'+item.Typename+'</li>'
+				listConHtml+='<div class="swiper-slide listItem">'+item.Typename+'</div>'
+			})
+			html+='<i class="lastLi"></i><i class="indicator"></i>'
+			$('.tabNavBar').html(html)
+			$('.listCon .swiper-wrapper').html(listConHtml)
+			tabNavBarClick(id)
+			$('.tabNavBar li').click(function(event) {
+				var index=$(this).index()
+				tabNavBarClick(index)
+			});
+		}
+	})
+	
+})
+</script>
+</body>
+</html>

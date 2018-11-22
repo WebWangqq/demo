@@ -14,7 +14,8 @@
 
 <body ontouchstart>
 <div id="navBar">
-	<a class="goBack" href="">返回</a>
+	<!-- <a class="goBack" href="">返回</a> -->
+	<span class="myCenter" id='myCenter' onclick="showLeftBar()">个人中心</span>
 	<div class="title">注册</div>
 </div>
 
@@ -29,6 +30,7 @@
 		<a href="stickup1.html"><li>通讯录<i class="arrowRight"></i></li></a>
 		<a href="stickup2.html"><li>tabNav顶部<i class="arrowRight"></i></li></a>
 		<a href="map.html"><li>地图<i class="arrowRight"></i></li></a>
+		<a href="tabBar.html?id=4"><li>tabBar<i class="arrowRight"></i></li></a>
 	</ul>
 	<ul class="formInfo">
 		<a href="payPassword.html"><li>支付密码<i class="arrowRight"></i></li></a>
@@ -70,10 +72,22 @@
 	<a href=""><i></i><span>个人中心</span></a>
 </div>
 
+<div id="leftBarOverlay" onclick="hideLeftBar()"></div>
+<div id="leftBar"></div>
+
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript">
-//showLoadding()
+function showLeftBar(){
+	$('#leftBarOverlay').show();
+	$('#leftBar').addClass('open')
+	$('body').on('touchmove', function(event) { event.preventDefault(); });
+}
+function hideLeftBar(){
+	$('#leftBarOverlay').fadeOut(500);
+	$('#leftBar').removeClass('open')
+	$('body').unbind("touchmove"); 
+}
 </script>
 </body>
 </html>
