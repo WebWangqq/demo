@@ -3,7 +3,7 @@ $('body').append("<div id='overlay' onclick='hideLight()'></div><div id='tipBox'
 /*比例缩放*/
 function resize() {
     var wWidth = document.body.clientWidth;
-    var wHeight=document.body.clientHeight
+    var wHeight=document.documentElement.clientHeight
     var Fsize = wWidth / 7.5 < 50 ? wWidth / 7.5 : 50;
     document.querySelector('html').style.fontSize = Fsize + 'px';
     var pageWrap=document.getElementById('pageWrap')

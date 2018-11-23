@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>全部分类</title>
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<style type="text/css">
+.allTypeWrap{position:absolute;top:0;bottom:0;left:0;right:0;max-width:640px;margin:0 auto;overflow:hidden;background-color:#ffffff;}
+.tab-nav{float:left;width:23%;height:100%;overflow-y:auto; background-color:#eee;
+-webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+.tab-nav li{position:relative;height:60px;text-align:center;line-height:60px;}
+.tab-nav li:after{content:'';position:absolute;bottom:0;left:0;right:0;height:0;border-bottom:1px solid #ffffff;z-index:1}
+.tab-nav li.current{color:#6ca6fa;background-color:#ffffff}
+.tab-nav li.current:before{content:'';position:absolute;top:0;right:0;bottom:0;left:0;width:3px;background-color:#6ca6fa;z-index:2}
+.tab-menu{float:left;position:relative;width:77%;height:100%;overflow-y:auto;
+-webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+.tab-menu li{position:relative;}
+.tab-menu li .title{padding:0 20px;line-height:60px;background-color:#fff;}
+.tab-menu li .title span{float:left;color:#6ca6fa;}
+.tab-menu li .title a{float:right;font-size:12px;}
+.tab-menu li .con{height:300px;padding-bottom:20px;background-color:#f00}
+</style>
+</head>
+
+<body ontouchstart>
+<div id="pageWrap">
+	<div class="allTypeWrap">
+		<div class="tab-nav" id='tab-nav'>
+			<ul>
+				<li class="current">生鲜水果</li>
+			</ul>
+		</div>
+		<div class="tab-menu" id='tab-menu'>
+			<ul>
+				<li>
+					<div class="title clearfix"><span>生鲜水果</span><a href="">去看看</a></div>
+					<div class="con"></div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$.ajax({
+		type:'get',
+		url: 'data/tabBar.json',
+		dataType: 'json',
+		async:false,
+		success:function(data){
+			var navhtml='';
+			var menuhtml=''
+			var listConHtml='';
+			$.each(data,function(i,item){
+				navhtml+='<li>'+item.Typename+'</li>'
+				listConHtml+='<li><div data-index="'+i+'" class="title clearfix"><span>'+item.Typename+'</span><a href="tabBar.html?id='+i+'">去看看</a></div><div class="con"></div></li>'
+			})
+			$('#tab-nav ul').html(navhtml)
+			$('#tab-menu ul').html(listConHtml)
+			$('#tab-nav ul li').eq(0).addClass('current')
+
+			
+			$('#tab-nav ul li').click(function(event) {
+				var index=$(this).index()
+				navClick(index)
+			});
+
+			$("#tab-menu li .title").each(function(i){
+				$(this).stick();
+			})
+			
+		}
+	})
+});
+
+var scrollNav=0//左边滚动高度
+var navTopReset=240//左边顶部高度
+
+var scrollMenu=0//右边滚动高度
+
+$('#tab-nav').on('scroll', function(e) {
+    scrollNav=$(this).scrollTop()
+})
+
+$('#tab-menu').on('scroll', function(e) {
+	scrollMenu=$(this).scrollTop()
+	/*var len=$('#tab-menu li').length
+	for(var index=0;index<len;index++){
+		var $cur = $('#tab-menu .title').eq(index),
+			itemH=$cur.parent().height(),
+			curH = $cur.height(),
+
+			curW = $cur.width(),
+			offsetTop = $cur.offset().top,
+			offsetLeft = $cur.offset().left
+		console.log('scrollMenu '+scrollMenu+' offsetTop '+offsetTop)
+		if(offsetTop<=0){
+			$('#tab-nav ul li').eq(index).addClass('current').siblings().removeClass('current')
+
+			var currentNavTop=$('#tab-nav ul li').eq(index).offset().top;
+		}
+
+	}*/
+})
+
+function navClick(index){
+	$('#tab-nav ul li').eq(index).addClass('current').siblings().removeClass('current')
+	var currentNavTop=$('#tab-nav ul li').eq(index).offset().top;
+	if(scrollNav<0) scrollNav=0
+	var scrollNav2=scrollNav+currentNavTop-navTopReset
+	$('#tab-nav').animate({scrollTop:scrollNav2},100)
+	var currentMenuTop=$('#tab-menu ul li').eq(index).offset().top;
+	if(scrollMenu<0) scrollMenu=0
+	var scrollMenu2=scrollMenu+currentMenuTop
+	$('#tab-menu').animate({scrollTop:scrollMenu2},200)
+}
+
+
+
+(function(){
+	$.fn.stick =function(){
+		var $cur = this,
+			itemH=$cur.parent().height(),
+			curH = $cur.height(),
+
+			curW = $cur.width(),
+			offsetTop = $cur.offset().top,
+			offsetLeft = $cur.offset().left,
+			isFixed = false;
+			isAbsolute=false
+		//  克隆元素，用于占位
+		var $curClone = $cur.clone()
+							.css({visibility: "hidden",display: "none"})
+							.insertBefore($cur);
+		var index
+		//console.log("itemH"+itemH+","+"offsetTop"+offsetTop)
+		//  设置监听函数
+		$('#tab-menu').on("scroll", function(){
+			var winScroll = $(this).scrollTop();
+			if(winScroll >= offsetTop && winScroll<=offsetTop+itemH-curH){
+				setFixed();
+				$('#tab-nav ul li').eq(index).addClass('current').siblings().removeClass('current')
+				// var currentNavTop=$('#tab-nav ul li').eq(index).offset().top;
+				// var scrollNav2=0
+				// console.log(scrollNav2)
+				// if(currentNavTop>navTopReset){
+				// 	scrollNav2+=currentNavTop-navTopReset
+				// 	$('#tab-nav').animate({scrollTop:scrollNav2},100)
+				// }
+			}
+			else if(winScroll>offsetTop+itemH-curH){
+				setAbsolute()
+			}
+			else{
+				unsetFixed();
+			}
+		});
+		// 设置添加和删除stick函数
+		
+		function setFixed(){
+			$cur.css({
+				"position" : "fixed",
+				"top" : 0,
+				"left" : offsetLeft,
+				"width" : curW,
+				//"background":'#ccc',
+				"z-index" : 100
+			}),
+			$curClone.show();
+			isFixed = true;
+			isAbsolute=false
+			index=$cur.data('index')
+			
+		}
+		function setAbsolute(){
+			$cur.css({
+				"position" : "absolute",
+				"top" : itemH-curH,
+				"left" : 0,
+				"width" : curW,
+				"z-index" : 100
+			})
+			$curClone.show();
+			isFixed=false
+			isAbsolute=true
+		}
+		function unsetFixed(){
+			isFixed = false;
+			isAbsolute = false;
+			$cur.removeAttr("style");
+			$curClone.hide();	
+		}
+	}
+})();
+
+</script>
+</body>
+
+</html>

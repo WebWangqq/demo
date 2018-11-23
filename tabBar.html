@@ -107,7 +107,7 @@ function tabNavBarClick(index){
 	var currentjuli=$('.tabNavBar li').eq(index).offset().left;
 
 	if(scrollLeftNum<0) scrollLeftNum=0
-	scrollLeftNum2=scrollLeftNum+currentjuli-juliFmat
+	var scrollLeftNum2=scrollLeftNum+currentjuli-juliFmat
 	$('.tabNavBar').animate({scrollLeft:scrollLeftNum2},100)
 	$('.indicator').css({'width':currentW+'px','transform':'translate3d('+transNum+'px, 0px, 0px)','opacity':1})
 }

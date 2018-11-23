@@ -9,7 +9,7 @@
 	},
 	{
 		"ShopTypeID":3,
-		"Typename":"酒水"
+		"Typename":"酒水乳饮"
 	},
 	{
 		"ShopTypeID":4,
@@ -46,5 +46,29 @@
 	{
 		"ShopTypeID":12,
 		"Typename":"宠物生活"
+	},
+	{
+		"ShopTypeID":13,
+		"Typename":"礼品鲜花"
+	},
+	{
+		"ShopTypeID":14,
+		"Typename":"农资绿植"
+	},
+	{
+		"ShopTypeID":15,
+		"Typename":"生活旅行"
+	},
+	{
+		"ShopTypeID":16,
+		"Typename":"奢侈品"
+	},
+	{
+		"ShopTypeID":17,
+		"Typename":"艺术邮币"
+	},
+	{
+		"ShopTypeID":18,
+		"Typename":"二手商品"
 	}
 ]
