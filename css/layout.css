@@ -85,8 +85,8 @@ transform: scaleY(0.5);
 .formInfo a:active{background-color:#eaeaea;}
 .formInfo a:last-child li:after{height:0;}
 .formInfo li label{display:block;min-width:1.6rem;padding-right:.1rem;font-weight:400}
-.formInfo li .info{position:relative;height:100%;box-flex:1; -moz-box-flex:1; -webkit-box-flex:1;}
-.formInfo li .info .field{display:block;width:100%;height:100%;}
+.formInfo li .info{position:relative;height:100%;box-flex:1; -moz-box-flex:1; -webkit-box-flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.formInfo li .info .field{display:block;width:100%;height:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .formInfo li .info .myselect{position:absolute;top:0;left:0;display:block;width:100%;height:100%;opacity:0;}
 .formInfo li .info .bankLogo{display:inline-block;width:.4rem;height:.4rem;margin-right:.15rem;}
 .formInfo li .yzm{position:relative;display:block;width:1.8rem;text-align:center;}
@@ -97,7 +97,8 @@ transform: scaleY(0.5);
 -o-transform: scaleX(0.5);
 transform: scaleX(0.5);
 }
-
+.formInfoTxtRight li .info{padding-right: 35px;text-align:right;}
+.formInfoTxtRight li .info .field{text-align:right;}
 
 /*loading*/
 .loadBox{display:none;position:fixed;left:0;top:0;width:100%;height:100%;z-index:9900;}

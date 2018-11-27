@@ -93,11 +93,11 @@ var juliFmat=160//左边
 var scrollLeftNum=0
 
 function tabNavBarClick(index){
-	console.log($('.tabNavBar li:eq(4)').width())
+	//console.log($('.tabNavBar li:eq(4)').width())
 	listCon.update()
 	listCon.slideTo(index,0,false)
 	var currentW=$('.tabNavBar li').eq(index).width()
-	console.log(currentW)
+	//console.log(currentW)
 	$('.tabNavBar li').eq(index).addClass('current').siblings().removeClass('current')
 	var transNum=10
 	for(var i=0;i<index;i++){

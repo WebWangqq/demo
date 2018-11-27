@@ -81,7 +81,9 @@
 			<li>
 				<label>地区</label>
 				<div class="info">
-					<input id="city" class="field" type="text" placeholder="常住地(必选)" readonly unselectable="on" onfocus="this.blur()" />
+					<input id="city" class="field" type="text" placeholder="常住地(必选)" readonly unselectable="on" onfocus="this.blur()" value="山西省,阳泉市,郊区" />
+					<input id="cityValue" type="hidden" value="140000,140300,140311"/>
+					<input id="cityValIndex" type="hidden" name="" value="3,2,3">
 				</div>
 			</li>
 		</ul>
@@ -143,11 +145,9 @@
 <script type="text/javascript" src="js/mobiscroll.i18n.zh.js"></script>
 <!--日期选择end-->
 
-<script src="js/LAreaData1.js"></script>
-<!--城市选择-->
-<script src="js/LAreaData2.js"></script>
 <!--城市选择-->
 <script src="js/LArea.min.js"></script>
+<script src="js/LAreaData.js"></script>
 <!--城市选择-->
 
 <script>
@@ -162,7 +162,6 @@ $('.myselect').change(function(event) {
 $(document).ready(function() {
 	var wWidth = document.body.clientWidth;
     var mt = $(window).height() - $(".formWrap").height() - 90;
-    console.log(mt)
     var paddingTop = (mt > 50) ? mt : 50;
     $("#btnMainCon").css({ "padding-top": paddingTop, "padding-bottom": "50px" });
 })
@@ -192,6 +191,8 @@ $('#beginTime,#endTime').scroller('destroy').scroller({
 var city = new LArea();
 city.init({
 	'trigger': '#city',
+	'valueTo':'#cityValue',
+	'valueIndex':'#cityValIndex',
 	'keys': {
 		id: 'value',
 		name: 'text'
@@ -199,10 +200,18 @@ city.init({
 	'type': 2,
 	'data': [provs_data, citys_data, dists_data]
 });
+var valIndex=$('#cityValIndex').val()
+city.value=valIndex.split(',')
 
 $("#city").on("input", function() {
-	console.log($(this).val())
+	var cityText=$(this).val();
+	var cityVal=$('#cityValue').val();
+	var cityValIndex=$('#cityValIndex').val()
+	console.log(cityText)
+	console.log(cityVal)
+	console.log(cityValIndex)
 })
+console.log(provs_data)
 /*******地区end*******/
 
 

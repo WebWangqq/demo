@@ -1,0 +1,197 @@
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>个人信息</title>
+<link type="text/css" rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="iosSelect.css">
+</head>
+
+<body>
+
+<body>
+	<ul class="formInfo formInfoTxtRight" style="margin-top:10px;">
+		<li>
+			<label>年龄</label>
+			<div class="info colorGray"><input class="field colorGray" type="tel" placeholder="26" /></div>
+		</li>
+		<li>
+			<label>性别</label>
+			<input type="hidden" name="sexId" id="sexId" value="10002">
+			<div class="info colorGray" id="showSex" data-id='10001' data-value='男'>男</div>
+			<i class="arrowRight"></i>
+		</li>
+		<li>
+			<label>学历</label>
+			<input type="hidden" name="eduId" id="eduId" value="10002">
+			<div class="info colorGray" id="showEdu" data-id='10002' data-value='本科'>本科</div>
+			<i class="arrowRight"></i>
+		</li>
+		<li>
+			<label>职业</label>
+			<input type="hidden" name="proId" id="proId" value="">
+			<div class="info colorGray" id="showPro" data-id='' data-value=''>请选择</div>
+			<i class="arrowRight"></i>
+		</li>
+		<li>
+			<label>地区</label>
+			<input type="hidden" name="contact_province_code" data-id="0001" id="contact_province_code" value="" data-province-name="">
+			<input type="hidden" name="contact_city_code" id="contact_city_code" value="" data-city-name="">
+			<div class="info colorGray" id="show_contact" data-city-code="510100" data-province-code="510000" data-district-code="510105">四川省成都市青羊区</div>
+			<i class="arrowRight"></i>
+		</li>
+	</ul>
+<!--     <div class="EduSelect"></div> -->
+</body>
+<script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script src="iosSelect.js"></script>
+<script src="areaData_v2.js"></script>
+
+<script type="text/javascript">
+var dataSex=[
+{ 'id': '10001', 'value': '男' },
+{ 'id': '10002', 'value': '女' },
+{ 'id': '10003', 'value': '其他' }
+]
+var showSexDom = document.querySelector('#showSex');
+var sexIdDom = document.querySelector('#sexId');
+showSexDom.addEventListener('click', function() {
+    var sexId = showSexDom.dataset['id'];
+    var bankName = showSexDom.dataset['value'];
+
+    var EduSelect = new IosSelect(1,
+        [dataSex], {
+            // container: '.sexSelect',
+            title: '性别',
+            itemHeight: 45,
+            itemShowCount: 3,
+            oneLevelId: sexId,
+            callback: function(selectOneObj) {
+                sexIdDom.value = selectOneObj.id;
+                showSexDom.innerHTML = selectOneObj.value;
+                showSexDom.dataset['id'] = selectOneObj.id;
+                showSexDom.dataset['value'] = selectOneObj.value;
+                console.log(selectOneObj.value)
+            }
+        });
+});
+
+var dataEdu = [
+{ 'id': '10001', 'value': '大专' },
+{ 'id': '10002', 'value': '本科' }, 
+{ 'id': '10003', 'value': '硕士' }, 
+{ 'id': '10004', 'value': '博士' }, 
+{ 'id': '10005', 'value': 'MBA' }, 
+{ 'id': '10006', 'value': 'EMBA' }, 
+{ 'id': '10007', 'value': '中专' }, 
+{ 'id': '10008', 'value': '中技' }, 
+{ 'id': '10009', 'value': '高中' }, 
+{ 'id': '10010', 'value': '初中' }, 
+{ 'id': '10011', 'value': '其他' }
+];
+var showEduDom = document.querySelector('#showEdu');
+var eduIdDom = document.querySelector('#eduId');
+showEduDom.addEventListener('click', function() {
+    var eduId = showEduDom.dataset['id'];
+    var bankName = showEduDom.dataset['value'];
+
+    var EduSelect = new IosSelect(1,
+        [dataEdu], {
+            // container: '.EduSelect',
+            title: '学历选择',
+            itemHeight: 45,
+            itemShowCount: 5,
+            oneLevelId: eduId,
+            callback: function(selectOneObj) {
+                eduIdDom.value = selectOneObj.id;
+                showEduDom.innerHTML = selectOneObj.value;
+                showEduDom.dataset['id'] = selectOneObj.id;
+                showEduDom.dataset['value'] = selectOneObj.value;
+                console.log(selectOneObj.value)
+            }
+        });
+});
+
+var dataPro = [
+{ 'id': '10001', 'value': '计算机/互联网/通信' },
+{ 'id': '10002', 'value': '生产/工艺/制造' }, 
+{ 'id': '10003', 'value': '医疗/护理/制药' }, 
+{ 'id': '10004', 'value': '金融/银行/投资/保险' }, 
+{ 'id': '10005', 'value': '商业/服务业/个体经营' }, 
+{ 'id': '10006', 'value': '文化/广告/传媒' }, 
+{ 'id': '10007', 'value': '娱乐/艺术/表演' }, 
+{ 'id': '10008', 'value': '律师/法务' }, 
+{ 'id': '10009', 'value': '教育/培训' }, 
+{ 'id': '10010', 'value': '模特' }, 
+{ 'id': '10011', 'value': '空姐' }, 
+{ 'id': '10012', 'value': '学生' }, 
+{ 'id': '10013', 'value': '其他' }
+];
+var showProDom = document.querySelector('#showPro');
+var proIdDom = document.querySelector('#proId');
+showProDom.addEventListener('click', function() {
+    var proId = showProDom.dataset['id'];
+    var bankName = showProDom.dataset['value'];
+
+    var ProSelect = new IosSelect(1,
+        [dataPro], {
+            // container: '.ProSelect',
+            title: '职业选择',
+            itemHeight: 40,
+            itemShowCount: 5,
+            oneLevelId: proId,
+            callback: function(selectOneObj) {
+                proIdDom.value = selectOneObj.id;
+                showProDom.innerHTML = selectOneObj.value;
+                showProDom.dataset['id'] = selectOneObj.id;
+                showProDom.dataset['value'] = selectOneObj.value;
+            }
+        });
+});
+
+var selectContactDom = $('#select_contact');
+var showContactDom = $('#show_contact');
+var contactProvinceCodeDom = $('#contact_province_code');
+var contactCityCodeDom = $('#contact_city_code');
+showContactDom.bind('click', function () {
+	console.log('aa')
+    var sccode = showContactDom.attr('data-city-code');
+    var scname = showContactDom.attr('data-city-name');
+
+    var oneLevelId = showContactDom.attr('data-province-code');
+    var twoLevelId = showContactDom.attr('data-city-code');
+    var threeLevelId = showContactDom.attr('data-district-code');
+    var iosSelect = new IosSelect(3, 
+        [iosProvinces, iosCitys, iosCountys],
+        {
+            title: '地址选择',
+            itemHeight: 35,
+            relation: [1, 1],
+            oneLevelId: oneLevelId,
+            twoLevelId: twoLevelId,
+            threeLevelId: threeLevelId,
+            callback: function (selectOneObj, selectTwoObj, selectThreeObj) {
+                contactProvinceCodeDom.val(selectOneObj.id); 
+                contactProvinceCodeDom.attr('data-province-name', selectOneObj.value);
+                contactCityCodeDom.val(selectTwoObj.id);
+                contactCityCodeDom.attr('data-city-name', selectTwoObj.value);
+
+                showContactDom.attr('data-province-code', selectOneObj.id);
+                showContactDom.attr('data-city-code', selectTwoObj.id);
+                showContactDom.attr('data-district-code', selectThreeObj.id);
+                showContactDom.html(selectOneObj.value + '' + selectTwoObj.value + '' + selectThreeObj.value);
+            }
+    });
+});
+
+</script>
+</body>
+
+</html>
