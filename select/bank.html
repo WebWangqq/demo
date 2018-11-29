@@ -23,8 +23,8 @@
 		</li>
 		<li>
 			<label>性别</label>
-			<input type="hidden" name="sexId" id="sexId" value="10002">
-			<div class="info colorGray" id="showSex" data-id='10001' data-value='男'>男</div>
+			<!-- <input type="hidden" name="sexId" id="sexId" value="10002"> -->
+			<div class="info colorGray" id="showSex" data-id='10002' data-value='女'>女</div>
 			<i class="arrowRight"></i>
 		</li>
 		<li>
@@ -43,7 +43,7 @@
 			<label>地区</label>
 			<input type="hidden" name="contact_province_code" data-id="0001" id="contact_province_code" value="" data-province-name="">
 			<input type="hidden" name="contact_city_code" id="contact_city_code" value="" data-city-name="">
-			<div class="info colorGray" id="show_contact" data-city-code="510100" data-province-code="510000" data-district-code="510105">四川省成都市青羊区</div>
+			<div class="info colorGray" id="show_contact" data-province-code="510000" data-city-code="510100" data-district-code="510105">四川省成都市青羊区</div>
 			<i class="arrowRight"></i>
 		</li>
 	</ul>
@@ -56,9 +56,9 @@
 
 <script type="text/javascript">
 var dataSex=[
-{ 'id': '10001', 'value': '男' },
-{ 'id': '10002', 'value': '女' },
-{ 'id': '10003', 'value': '其他' }
+	{ 'id': '10001', 'value': '男' },
+	{ 'id': '10002', 'value': '女' },
+	{ 'id': '10003', 'value': '其他' }
 ]
 var showSexDom = document.querySelector('#showSex');
 var sexIdDom = document.querySelector('#sexId');
@@ -74,7 +74,7 @@ showSexDom.addEventListener('click', function() {
             itemShowCount: 3,
             oneLevelId: sexId,
             callback: function(selectOneObj) {
-                sexIdDom.value = selectOneObj.id;
+                // sexIdDom.value = selectOneObj.id;
                 showSexDom.innerHTML = selectOneObj.value;
                 showSexDom.dataset['id'] = selectOneObj.id;
                 showSexDom.dataset['value'] = selectOneObj.value;
@@ -84,17 +84,17 @@ showSexDom.addEventListener('click', function() {
 });
 
 var dataEdu = [
-{ 'id': '10001', 'value': '大专' },
-{ 'id': '10002', 'value': '本科' }, 
-{ 'id': '10003', 'value': '硕士' }, 
-{ 'id': '10004', 'value': '博士' }, 
-{ 'id': '10005', 'value': 'MBA' }, 
-{ 'id': '10006', 'value': 'EMBA' }, 
-{ 'id': '10007', 'value': '中专' }, 
-{ 'id': '10008', 'value': '中技' }, 
-{ 'id': '10009', 'value': '高中' }, 
-{ 'id': '10010', 'value': '初中' }, 
-{ 'id': '10011', 'value': '其他' }
+	{ 'id': '10001', 'value': '大专' },
+	{ 'id': '10002', 'value': '本科' }, 
+	{ 'id': '10003', 'value': '硕士' }, 
+	{ 'id': '10004', 'value': '博士' }, 
+	{ 'id': '10005', 'value': 'MBA' }, 
+	{ 'id': '10006', 'value': 'EMBA' }, 
+	{ 'id': '10007', 'value': '中专' }, 
+	{ 'id': '10008', 'value': '中技' }, 
+	{ 'id': '10009', 'value': '高中' }, 
+	{ 'id': '10010', 'value': '初中' }, 
+	{ 'id': '10011', 'value': '其他' }
 ];
 var showEduDom = document.querySelector('#showEdu');
 var eduIdDom = document.querySelector('#eduId');
@@ -120,19 +120,19 @@ showEduDom.addEventListener('click', function() {
 });
 
 var dataPro = [
-{ 'id': '10001', 'value': '计算机/互联网/通信' },
-{ 'id': '10002', 'value': '生产/工艺/制造' }, 
-{ 'id': '10003', 'value': '医疗/护理/制药' }, 
-{ 'id': '10004', 'value': '金融/银行/投资/保险' }, 
-{ 'id': '10005', 'value': '商业/服务业/个体经营' }, 
-{ 'id': '10006', 'value': '文化/广告/传媒' }, 
-{ 'id': '10007', 'value': '娱乐/艺术/表演' }, 
-{ 'id': '10008', 'value': '律师/法务' }, 
-{ 'id': '10009', 'value': '教育/培训' }, 
-{ 'id': '10010', 'value': '模特' }, 
-{ 'id': '10011', 'value': '空姐' }, 
-{ 'id': '10012', 'value': '学生' }, 
-{ 'id': '10013', 'value': '其他' }
+	{ 'id': '10001', 'value': '计算机/互联网/通信' },
+	{ 'id': '10002', 'value': '生产/工艺/制造' }, 
+	{ 'id': '10003', 'value': '医疗/护理/制药' }, 
+	{ 'id': '10004', 'value': '金融/银行/投资/保险' }, 
+	{ 'id': '10005', 'value': '商业/服务业/个体经营' }, 
+	{ 'id': '10006', 'value': '文化/广告/传媒' }, 
+	{ 'id': '10007', 'value': '娱乐/艺术/表演' }, 
+	{ 'id': '10008', 'value': '律师/法务' }, 
+	{ 'id': '10009', 'value': '教育/培训' }, 
+	{ 'id': '10010', 'value': '模特' }, 
+	{ 'id': '10011', 'value': '空姐' }, 
+	{ 'id': '10012', 'value': '学生' }, 
+	{ 'id': '10013', 'value': '其他' }
 ];
 var showProDom = document.querySelector('#showPro');
 var proIdDom = document.querySelector('#proId');
