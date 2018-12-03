@@ -6,8 +6,6 @@ function resize() {
     var wHeight=document.documentElement.clientHeight
     var Fsize = wWidth / 7.5 < 50 ? wWidth / 7.5 : 50;
     document.querySelector('html').style.fontSize = Fsize + 'px';
-    var pageWrap=document.getElementById('pageWrap')
-    if(pageWrap) document.getElementById('pageWrap').style.minHeight = wHeight+'px';
 };
 window.onload = function() {
     resize();
