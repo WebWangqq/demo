@@ -3,13 +3,24 @@ $('body').append("<div id='overlay' onclick='hideLight()'></div><div id='tipBox'
 /*比例缩放*/
 function resize() {
     var wWidth = document.body.clientWidth;
-    var wHeight=document.documentElement.clientHeight
     var Fsize = wWidth / 7.5 < 50 ? wWidth / 7.5 : 50;
     document.querySelector('html').style.fontSize = Fsize + 'px';
 };
+
+function userAgentWx() {
+    var ua = navigator.userAgent.toLowerCase();
+    var isWeixin = ua.indexOf('micromessenger') != -1;
+    var isAndroid = ua.indexOf('android') != -1;
+    var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+    if (!isWeixin) {
+        document.head.innerHTML = '<title>抱歉，出错了</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"><link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/open/libs/weui/0.4.1/weui.css">';
+        document.body.innerHTML = '<div class="weui_msg"><div class="weui_icon_area"><i class="weui_icon_info weui_icon_msg"></i></div><div class="weui_text_area"><h4 class="weui_msg_title">请在微信客户端打开链接</h4></div></div>';
+    }
+}
 window.onload = function() {
     resize();
     btnGray();
+    // userAgentWx()
 }
 window.onresize = resize;
 
@@ -21,7 +32,7 @@ function showLoadding() {
 
 function hideLoadding() {
     $("#loadBox").hide();
-    $('body').unbind("touchmove"); 
+    $('body').unbind("touchmove");
 }
 //加载中end
 
@@ -34,9 +45,9 @@ function showTipBox(message, callback) {
     var marginLeft = (document.body.clientWidth - $(".tipBoxCon").width() - document.body.clientWidth / 7.5) / 2
     $(".tipBoxCon").css({ "margin-top": marginTop, "margin-left": marginLeft });
     $('body').on('touchmove', function(event) { event.preventDefault(); });
-    setTimeout(function() { 
-    	$("#tipBox").fadeOut(300);
-        $('body').unbind("touchmove"); 
+    setTimeout(function() {
+        $("#tipBox").fadeOut(300);
+        $('body').unbind("touchmove");
     }, 2000);
     if (typeof callback === "function") {
         callback();
@@ -104,6 +115,20 @@ function btnFixedBottom() {
 /*表单按钮位置end*/
 
 /*输入银行卡号格式化*/
+function inputBankcardNum(obj) {
+    var value = obj.value;
+    value = value.replace(/\s*/g, "");
+    var result = [];
+    for (var i = 0; i < value.length; i++) {
+        if (i % 4 == 0 && i != 0) {
+            result.push(" " + value.charAt(i));
+        } else {
+            result.push(value.charAt(i));
+        }
+
+    }
+    obj.value = result.join("");
+}
 function formatBankcardNum(obj) {
     var value = obj.value;
     value = value.replace(/\s*/g, "");
@@ -120,7 +145,7 @@ function formatBankcardNum(obj) {
 }
 
 /*输入手机号格式化*/
-function formatMobile(obj) {
+function inputMobile(obj) {
     var value = obj.value;
     value = value.replace(/\s*/g, "");
     var result = [];
@@ -141,14 +166,33 @@ function isMobile(cla) {
     var flag = mobile.test(cla.replace(/\s+/g, ""))
     return flag
 }
-
-/*校验用户名*/
-function isusername(cla){
-    return (cla.search(/^\w{6,20}$/)>-1)
+/*手机号去掉空格*/
+function resetMobile(cla){
+    var obj = cla.replace(/\s+/g, "")
+    return obj
 }
 
-function isPassword(cla){
-    if (cla.search(/^\w{6,12}$/)>-1) {
+/*手机号格式化*/
+function formatMobile(obj) {
+    var value = obj.replace(/\s*/g, "");
+    var result = [];
+    for (var i = 0; i < value.length; i++) {
+        if (i == 3 || i == 7) {
+            result.push(" " + value.charAt(i));
+        } else {
+            result.push(value.charAt(i));
+        }
+    }
+    return result.join("");
+}
+
+/*校验用户名*/
+function isusername(cla) {
+    return (cla.search(/^\w{6,20}$/) > -1)
+}
+
+function isPassword(cla) {
+    if (cla.search(/^\w{6,12}$/) > -1) {
         //(/^[A-Z]+$|^[a-z]+$|^[\d]+$|^[_]+$/g).test(cla) 必须包含大写字母、小写字母、数字、下划线的最少两种，6-12个字符
         if ((/^[A-Z]+$|^[a-z]+$|^[\d]+$/g).test(cla)) {
             return false;

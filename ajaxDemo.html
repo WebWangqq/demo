@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>ajaxDemo</title>
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+<style>
+body{height:auto;}
+#pageWrap{background-color:#ffffff;}
+.list .item{float:left;display:block;width:33.3%;padding:15px 4%;box-sizing:border-box;}
+.list .item:active{background-color:#dcdcdc}
+.list .item .img{position:relative;min-height:87px;overflow:hidden;}
+.list .item .img:before{content:'';display:block;padding-top:143%;}
+.list .item .img img{position:absolute;top:0;right:0;bottom:0;left:0;border-radius:3px;}
+.list .item .name{margin-top:5px;text-align:center;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.list .item .markCon{padding-top:3px;font-size:12px;text-align:center;}
+.list .item .markCon .xing{position:relative;display:inline-block;width:60px;height:16px;background:url(images/star2.png) left center repeat-x;background-size:auto 12px;vertical-align:middle;}
+.list .item .markCon .xing i{position:absolute;top:0;left:0;height:16px;background:url(images/star.png) left center repeat-x;background-size:auto 12px;}
+.list .item .markCon .num{color:#9b9b9b;vertical-align:middle;}
+@media (min-width:600px){
+	.list .item{width:20%;padding:15px;}
+}
+</style>
+
+</head>
+
+<body ontouchstart>
+
+<div id="pageWrap">
+	<div class="list clearfix">
+		<!-- <a class="item" href="">
+			<div class="img"><img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2539661066.jpg"></div>
+			<div class="name">无名之辈</div>
+			<div class="markCon">
+				<span class="xing"><i style=""></i></span>
+				<span class="num">8.3</span>
+			</div>
+		</a> -->
+	</div>
+</div>
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script>
+var city='天津';
+var curpage=1
+var pageStart=0;
+var pageSize=18
+
+function loadMore(){
+	$.ajax({
+		// url: 'https://api.douban.com/v2/movie/in_theaters',
+		url:'data/ajaxDemo.json',
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			city:city,
+			start:pageStart,
+			count:pageSize
+		},
+		success:function(res){
+			var data=res.subjects
+			console.log(data)
+			var html=''
+			$.each(data,function(i,item){
+				html+='<a class="item" href="'+item.alt+'">'
+					+'<div class="img"><img src="'+item.images.medium+'" /></div>'
+					+'<div class="name">'+item.title+'</div></a>'
+			})
+			$('.list').append(html)
+		}
+	})
+	// var html='<div style="height:800px;">'+pageStart+'</div>'
+	// $('#pageWrap').append(html)
+	curpage++
+	pageStart=(curpage-1)*pageSize
+
+	//console.log(curpage-2)
+}
+$(document).ready(function() {
+	loadMore()
+});
+var proact = 0;
+// $("#pageWrap").bind("touchmove",function () {
+// 	var t = document.documentElement.scrollTop || document.body.scrollTop;
+//     if (t > proact) {
+//         if ($(window).scrollTop() >= $('body').height()-$(window).height() ) {
+//             loadMore();
+//  			proact = t;
+//         }
+//     }  
+// });
+</script>
+</body>
+</html>

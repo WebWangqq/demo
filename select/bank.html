@@ -61,10 +61,8 @@ var dataSex=[
 	{ 'id': '10003', 'value': '其他' }
 ]
 var showSexDom = document.querySelector('#showSex');
-var sexIdDom = document.querySelector('#sexId');
 showSexDom.addEventListener('click', function() {
     var sexId = showSexDom.dataset['id'];
-    var bankName = showSexDom.dataset['value'];
 
     var EduSelect = new IosSelect(1,
         [dataSex], {
