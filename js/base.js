@@ -64,6 +64,7 @@ function showAgreementBox(cla) {
     var h = $(".agreementBox").height() - Fsize * 1.8;
     $(".textCon").css("height", h);
     var agreementBoxCon = new IScroll('#' + cla + ' .textCon', { mouseWheel: true, click: true });
+    $('body').css({'overflow':'hidden'})
     $('body').on('touchmove', function(event) { event.preventDefault(); });
 }
 
@@ -73,12 +74,14 @@ function showLight(cla) {
     var marginTop = (-$("#" + cla).outerHeight()) / 2;
     $("#" + cla).css({ "margin-top": marginTop });
     $("#" + cla).show();
+    $('body').css({'overflow':'hidden'})
     $('body').on('touchmove', function(event) { event.preventDefault(); });
 }
 //隐藏灯箱
 function hideLight() {
     $("#overlay").hide();
     $(".lightBox").hide();
+    $('body').css({'overflow':'auto'})
     $('body').unbind("touchmove");
 }
 
@@ -166,8 +169,8 @@ function isMobile(cla) {
     var flag = mobile.test(cla.replace(/\s+/g, ""))
     return flag
 }
-/*手机号去掉空格*/
-function resetMobile(cla){
+//去除字符算中的空格
+function Trim(cla){
     var obj = cla.replace(/\s+/g, "")
     return obj
 }
@@ -272,3 +275,37 @@ function commpare(property) {
         return value1 - value2;
     }
 };
+
+function ajaxData(string){
+    var time = new Date();
+    time =time.getFullYear()+ ""+formatNumber((time.getMonth()+1))+""+formatNumber(time.getDate())+""+formatNumber(time.getHours())+""+formatNumber(time.getMinutes())+""+formatNumber(time.getSeconds());
+    var mydata={
+        "data": string,
+        "msgid": time,
+        "sign": "asfasdfasfasfasfasdf"
+    }
+    return JSON.stringify(mydata)
+}
+
+function postJSON(url,data,callback){
+    showLoadding();
+    $.ajax({
+        url: 'http://192.168.0.121:8888/SaleInterfaces/' + url,
+        type: 'POST',
+        contentType: "application/json",
+        dataType: 'json',
+        data: data,
+        success:function(msg){
+            hideLoadding();
+            console.log(msg);
+            if(msg.data.status==1){
+                if (typeof callback === "function") {
+                    callback(msg);
+                }
+            }
+            else{
+                showTipBox(msg.data.message);
+            }
+        }
+    })
+}
