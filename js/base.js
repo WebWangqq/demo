@@ -215,7 +215,7 @@ function formatNumber(n) {
 
 /*发送验证码*/
 function runTime(string,time) {
-	var countdown = time;
+    var countdown = time;
     string.attr("disabled", true);
     string.addClass("colorGray");
     string.html(countdown+'s后重新发送');
@@ -228,7 +228,7 @@ function runTime(string,time) {
 	        countdown = time;
 	        window.clearInterval(timerF);
 	        timerF = null;
-	        string.attr("onclick", "sendCode($(this))");
+	        string.attr("onclick", "sendCode("+string+")");
 	    } else {
 	        string.html(countdown+'s后重新发送');
 	    }
