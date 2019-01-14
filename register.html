@@ -225,7 +225,7 @@ var sendCode = function(string) {
 	$("#yzm").val("")
 	if (isMobile($("#telphone").val())) {
 		$("#yzm").attr("disabled", false)
-		runbanktime(string);
+		runTime(string,60);
 	} else {
 		showTipBox("手机号格式输入错误")
 	}
