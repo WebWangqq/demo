@@ -214,30 +214,26 @@ function formatNumber(n) {
 
 
 /*发送验证码*/
-var countdown = 60;
-var timer = null;
-
-function run() {
-    countdown--;
-    if (countdown == 0) {
-        $("#yzmBtn").attr("disabled", false);
-        $("#yzmBtn").html('重新发送');
-        $("#yzmBtn").removeClass("colorGray");
-        countdown = 60;
-        window.clearInterval(timer);
-        timer = null;
-        $("#yzmBtn").attr("onclick", "sendCode($(this))");
-    } else {
-        $("#yzmBtn").html("重新发送(" + formatNumber(countdown) + ")");
-    }
-}
-
-function runbanktime(string) {
+function runTime(string,time) {
+	var countdown = time;
     string.attr("disabled", true);
     string.addClass("colorGray");
-    string.html('重新发送(' + countdown + ')');
-    timer = window.setInterval("run();", 1000);
-    $("#yzmBtn").removeAttr("onclick");
+    string.html(countdown+'s后重新发送');
+    var timerF = window.setInterval(function(){
+    	countdown--;
+	    if (countdown == 0) {
+	        string.attr("disabled", false);
+	        string.html('重新发送');
+	        string.removeClass("colorGray");
+	        countdown = time;
+	        window.clearInterval(timerF);
+	        timerF = null;
+	        string.attr("onclick", "sendCode($(this))");
+	    } else {
+	        string.html(countdown+'s后重新发送');
+	    }
+    }, 1000);
+    string.removeAttr("onclick");
 }
 /*发送验证码end*/
 
