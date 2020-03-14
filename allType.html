@@ -11,7 +11,7 @@
 <title>全部分类</title>
 <link type="text/css" rel="stylesheet" href="css/layout.css">
 <style type="text/css">
-.allTypeWrap{position:absolute;top:0;bottom:0;left:0;right:0;max-width:640px;margin:0 auto;overflow:hidden;background-color:#ffffff;}
+.allTypeWrap{position:relative;top:0;bottom:0;left:0;right:0;max-width:640px;margin:0 auto;overflow:hidden;background-color:#ffffff;}
 .tab-nav{float:left;width:23%;height:100%;overflow-y:auto; background-color:#eee;
 -webkit-overflow-scrolling: touch;
     overflow-scrolling: touch;
@@ -55,16 +55,19 @@
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	$('.allTypeWrap').height($(window).height())
 	$.ajax({
 		type:'get',
 		url: 'data/tabBar.json',
 		dataType: 'json',
 		async:false,
 		success:function(data){
+			console.log(data)
 			var navhtml='';
 			var menuhtml=''
 			var listConHtml='';
 			$.each(data,function(i,item){
+				console.log(item)
 				navhtml+='<li>'+item.Typename+'</li>'
 				listConHtml+='<li><div data-index="'+i+'" class="title clearfix"><span>'+item.Typename+'</span><a href="tabBar.html?id='+i+'">去看看</a></div><div class="con"></div></li>'
 			})
