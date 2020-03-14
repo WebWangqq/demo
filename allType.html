@@ -62,12 +62,10 @@ $(document).ready(function() {
 		dataType: 'json',
 		async:false,
 		success:function(data){
-			console.log(data)
 			var navhtml='';
 			var menuhtml=''
 			var listConHtml='';
 			$.each(data,function(i,item){
-				console.log(item)
 				navhtml+='<li>'+item.Typename+'</li>'
 				listConHtml+='<li><div data-index="'+i+'" class="title clearfix"><span>'+item.Typename+'</span><a href="tabBar.html?id='+i+'">去看看</a></div><div class="con"></div></li>'
 			})
